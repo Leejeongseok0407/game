@@ -11,14 +11,14 @@ public class Buffer : Unit
 
     //스킬을 체크-실현-쿨타임 으로 구현
     void SKill() {
-        if (!coolDownCheck())
+        if (!CoolDownCheck())
             return;
         DoSkill();
-        coolDown();
+        CoolDown();
     }
 
     //쿨다운을 반환하여 쿨타임 확인
-    bool coolDownCheck() {
+    bool CoolDownCheck() {
         return isCoolDown;
     }
 
@@ -36,7 +36,7 @@ public class Buffer : Unit
         }
     }
     //쿨타임 체크를 코루틴으로
-    void coolDown() { 
+    void CoolDown() { 
     
     }
 
