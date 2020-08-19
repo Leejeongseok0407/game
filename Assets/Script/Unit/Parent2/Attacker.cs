@@ -23,7 +23,7 @@ public class Attacker : Unit
     
     //attackSpeed를 사이클로 변환
     //분당 회 타격으로
-    protected void AttackCycleinitializer() {
+    protected void AttackCycleInitializer() {
         attackCycle =  60 / attackSpeed;
     }
 
