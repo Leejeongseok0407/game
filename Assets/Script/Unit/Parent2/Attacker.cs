@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Attacker : Unit
 {
+    [Tooltip("파워로 Dmg계산")]
     [SerializeField] protected int power;
-    [SerializeField] protected int constitutionNum;
+    [Tooltip("dd")]
+    [SerializeField] protected int constitutionNu;
     [Tooltip("분당 몇회 타격")]
     [SerializeField] protected float attackSpeed;
 
     [SerializeField] protected GameObject bullet = null;
+    //차후에 총알 담을것.
+    [SerializeField] protected GameObject bulletContainer = null;
     protected GameObject closeEnemy = null;
     protected List<GameObject> enemyList = new List<GameObject>();
     protected float fTime = 0;
+    protected int dmg;
     protected float attackCycle;
     protected GameObject target = null;
 
     private void Start()
     {
         AttackCycleInitializer();
+        CalculationDmg();
     }
     
     //attackSpeed를 사이클로 변환

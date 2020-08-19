@@ -32,6 +32,8 @@ public class Ranger : Attacker
             fTime = 0.0f;
             //불릿을 생성함.
             var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
+            //불릿 데미지 설정
+            aBullet.GetComponent<BulletWizard>().SetBulletDmg(dmg);
             //방향 벡터 생성
             Vector3 dir = (target.transform.position - transform.position).normalized;
             //앵글을 생성하여 회전각을 생성
