@@ -10,6 +10,11 @@ public class Unit : MonoBehaviour
     [SerializeField] protected int skillNum;
     [SerializeField] protected float coolDownTime;
     [SerializeField] protected bool isCoolDown;
+    
+    protected void SetRange() {
+        GetComponent<CircleCollider2D>().radius = range / 10f;
+        Debug.Log("big");
+    }
 
     void SKill()
     {

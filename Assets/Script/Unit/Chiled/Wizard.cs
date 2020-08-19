@@ -11,6 +11,7 @@ public class Wizard : Attacker
     private void Awake()
     {
         unitType = 1;
+        SetRange();
     }
 
     void Update()

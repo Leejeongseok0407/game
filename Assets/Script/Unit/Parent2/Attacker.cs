@@ -26,6 +26,12 @@ public class Attacker : Unit
     protected void AttackCycleInitializer() {
         attackCycle =  60 / attackSpeed;
     }
+    //데미지 계산
+    protected void CalculationDmg()
+    {
+        //차후에 공식으로 교환
+        dmg = power;
+    }
 
     protected void TimeGo()
     {

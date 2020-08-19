@@ -12,6 +12,7 @@ public class Ranger : Attacker
     private void Awake()
     {
         unitType = 0;
+        SetRange();
     }
 
     void Update()
