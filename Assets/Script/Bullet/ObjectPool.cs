@@ -8,9 +8,9 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool Instance;
     //새로 만들 오브젝트
     [SerializeField]
-    private GameObject BulletRanger;
+    private GameObject RangerBullet;
     [SerializeField]
-    private GameObject BulletWizard;
+    private GameObject WizardBullet;
     [SerializeField]
     private int setBulletSize = 10;
     //총알을 담을 큐
@@ -38,14 +38,14 @@ public class ObjectPool : MonoBehaviour
     //총알을 만들고 비활성화 + 자식으로 넣어주는 시켜주는 역활
     private BulletRanger CreateNewBulletRanger()
     {
-        var newObj = Instantiate(BulletRanger).GetComponent<BulletRanger>();
+        var newObj = Instantiate(RangerBullet).GetComponent<BulletRanger>();
         newObj.gameObject.SetActive(false);
         newObj.transform.SetParent(transform);
         return newObj;
     }
     private BulletWizard CreateNewBulletWizard()
     {
-        var newObj = Instantiate(BulletWizard).GetComponent<BulletWizard>();
+        var newObj = Instantiate(WizardBullet).GetComponent<BulletWizard>();
         newObj.gameObject.SetActive(false);
         newObj.transform.SetParent(transform);
         return newObj;
