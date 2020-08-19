@@ -13,5 +13,26 @@ public class Wizard : Attacker
         unitType = 1;
     }
 
-    
+    void Update()
+    {
+        TimeGo();
+        if (enemyList.Count > 0)
+        {
+            TagetSet();
+            Attack();
+        }
+    }
+
+    void Attack()
+    {
+
+        if (target != null && fTime > attackCycle)
+        {
+            fTime = 0.0f;
+            //불릿을 생성
+            var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
+            aBullet.GetComponent<BullitWizard>().SetTargetPosition((target.transform.position - transform.position).normalized);
+            aBullet.transform.localScale = new Vector3(0.5f, 0.5f);
+        }
+    }
 }

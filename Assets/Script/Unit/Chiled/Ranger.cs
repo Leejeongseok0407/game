@@ -13,4 +13,33 @@ public class Ranger : Attacker
     {
         unitType = 0;
     }
+
+    void Update()
+    {
+        TimeGo();
+        if (enemyList.Count > 0)
+        {
+            TagetSet();
+            Attack();
+        }
+    }
+
+    void Attack()
+    {
+        if (target != null && fTime > attackCycle)
+        {
+            fTime = 0.0f;
+            //불릿을 생성함.
+            var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
+            //방향 벡터 생성
+            Vector3 dir = (target.transform.position - transform.position).normalized;
+            //앵글을 생성하여 회전각을 생성
+            float angle = Vector2.SignedAngle(Vector2.down, dir);
+            Quaternion qut = new Quaternion();
+            qut.eulerAngles = new Vector3(0, 0, angle);
+            aBullet.transform.rotation = qut;
+            aBullet.transform.position += dir * 1.0f;
+        }
+        
+    }
 }
