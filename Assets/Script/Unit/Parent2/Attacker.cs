@@ -21,9 +21,10 @@ public class Attacker : Unit
         AttackCycleinitializer();
     }
     
-
-    protected void AttackCycleinitializer() {
-        attackCycle = attackSpeed / 60;
+    //attackSpeed를 사이클로 변환
+    //분당 회 타격으로
+    protected void AttackCycleInitializer() {
+        attackCycle =  60 / attackSpeed;
     }
 
     protected void TimeGo()
@@ -34,7 +35,6 @@ public class Attacker : Unit
     protected void TagetSet()
     {
         GameObject target = enemyList[0];
-        
     }
 
     interface Attack { }

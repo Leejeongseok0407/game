@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class BullitRanger : Bullit
 {
+
+    private void Update()
+    {
+        MoveBullit();
+        RemoveBullit();
+    }
     
 }
