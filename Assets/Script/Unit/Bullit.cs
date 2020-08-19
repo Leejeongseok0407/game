@@ -10,15 +10,17 @@ public class Bullit : MonoBehaviour
     [SerializeField] int bullitDmg;
     [SerializeField] float bullitRange;
 
-    //불릿이 일정거리 벗어나면 없어지는 함수
-    void AttackBullit() 
-    {
-        //불릿 이동함수
+    
+    //총알 움직이는 함수
+    protected void MoveBullit() {
         transform.Translate(targetPosition * Time.deltaTime * bullitSpeed);
+    }
 
+    //불릿이 일정거리 벗어나면 없어지는 함수
+    protected void RemoveBullit() 
+    {
         // 나와 부모의 사이가 일정거리(1.5f) 도달하면 삭제
         float distance = Vector3.Distance(transform.position, transform.parent.position);
-
         if (distance > bullitRange)
         {
             Destroy(gameObject);

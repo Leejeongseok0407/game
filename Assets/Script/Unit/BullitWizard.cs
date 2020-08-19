@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class BullitWizard : Bullit
 {
-       
+    private void Update()
+    {
+        MoveBullit();
+        RemoveBullit();
+    }
 }
