@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class Bullit : MonoBehaviour
 {
-        public Vector3 targetPosition = Vector3.zero;
-        public GameObject ExplosionParticle = null;
-       
-        void Update()
-        {
-        AttackBullit();
-        }
+    [SerializeField] Vector3 targetPosition = Vector3.zero;
+    [SerializeField] GameObject ExplosionParticle = null;
+    [SerializeField] float bullitSpeed;
+    [SerializeField] int bullitDmg;
+    [SerializeField] float bullitRange;
 
-    void AttackBullit() {
-        transform.Translate(targetPosition * Time.deltaTime * 3.0f);
+    //불릿이 일정거리 벗어나면 없어지는 함수
+    void AttackBullit() 
+    {
+        //불릿 이동함수
+        transform.Translate(targetPosition * Time.deltaTime * bullitSpeed);
 
         // 나와 부모의 사이가 일정거리(1.5f) 도달하면 삭제
         float distance = Vector3.Distance(transform.position, transform.parent.position);
-        if (distance > 1.5f)
-        {
-            Destroy(gameObject);
-        }
 
-        if (transform.position.x < -0.64f || transform.position.x > 13.44f || transform.position.y < -0.64f || transform.position.y > 8.32f)
+        if (distance > bullitRange)
         {
             Destroy(gameObject);
         }
+    }
+    public void SetTargetPosition(Vector3 Target) {
+        targetPosition = Target;
+    }
+    public int GetBullitDmg() {
+        return bullitDmg;
     }
 
 }

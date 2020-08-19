@@ -6,70 +6,92 @@ public class Attacker : Unit
 {
     [SerializeField] protected int power;
     [SerializeField] protected int constitutionNum;
+    [Tooltip("분당 몇회 타격")]
     [SerializeField] protected float attackSpeed;
 
-    public GameObject bullet = null;
+    [SerializeField] GameObject bullet = null;
     private GameObject closeEnemy = null;
-
-    private List<GameObject> collEnemys = new List<GameObject>();
+    private List<GameObject> enemyList = new List<GameObject>();
     private float fTime = 0;
-  
+    private float attackCycle;
+
+    private void Start()
+    {
+        attackCycle = attackSpeed / 60;
+    }
     // Update is called once per frame
     void Update()
     {
-        fTime += Time.deltaTime;
-        if (collEnemys.Count > 0)
-        {
-            GameObject target = collEnemys[0];
-            if (gameObject.tag == "Wizard")
-            {
-                if (target != null && fTime > 1.0f)
-                {
-                    fTime = 0.0f;
-                    var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
-                    aBullet.GetComponent<BullitWizard>().targetPosition = (target.transform.position - transform.position).normalized;
-                    aBullet.transform.localScale = new Vector3(0.5f, 0.5f);
-                }
-            }
 
-            else if (gameObject.tag == "Ranger")
+    }
+
+    void TimeGo()
+    {
+        fTime += Time.deltaTime;
+        if (enemyList.Count > 0)
+        {
+            TagetOn();
+        }
+    }
+    void TagetOn()
+    {
+        GameObject target = enemyList[0];
+        Attack();
+        if (gameObject.tag == "Wizard")
+        {
+            if (target != null && fTime > attackCycle)
             {
-                if (target != null && fTime > 0.5f)
-                {
-                    fTime = 0.0f;
-                    var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
-                    Vector3 dir = (target.transform.position - transform.position).normalized;
-                    float angle = Vector2.SignedAngle(Vector2.down, dir);
-                    Quaternion qut = new Quaternion();
-                    qut.eulerAngles = new Vector3(0, 0, angle);
-                    aBullet.transform.rotation = qut;
-                    aBullet.transform.position += dir * 1.0f;
-                }
+                fTime = 0.0f;
+                //불릿을 생성
+                var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
+                aBullet.GetComponent<BullitWizard>().SetTargetPosition((target.transform.position - transform.position).normalized);
+                aBullet.transform.localScale = new Vector3(0.5f, 0.5f);
+            }
+        }
+
+        else if (gameObject.tag == "Ranger")
+        {
+            if (target != null && fTime > attackCycle)
+            {
+                fTime = 0.0f;
+                //불릿을 생성함.
+                var aBullet = Instantiate(bullet, transform.position, Quaternion.identity, transform);
+                //방향 벡터 생성
+                Vector3 dir = (target.transform.position - transform.position).normalized;
+                //앵글을 생성하여 회전각을 생성
+                float angle = Vector2.SignedAngle(Vector2.down, dir);
+                Quaternion qut = new Quaternion();
+                qut.eulerAngles = new Vector3(0, 0, angle);
+                aBullet.transform.rotation = qut;
+                aBullet.transform.position += dir * 1.0f;
             }
         }
     }
 
+    void Attack()
+    {
+
+    }
+    //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
-            collEnemys.Add(collision.gameObject);
+            enemyList.Add(collision.gameObject);
     }
 
+    //트리거 범위에서 몬스터 나갈 경우 몬스터를 리스트에서 제거
     private void OnTriggerExit2D(Collider2D collision)
     {
-        foreach (GameObject go in collEnemys)
+        foreach (GameObject rangeOutEnemy in enemyList)
         {
-            if (go == collision.gameObject)
+            if (rangeOutEnemy == collision.gameObject)
             {
-                collEnemys.Remove(go);
+                enemyList.Remove(rangeOutEnemy);
                 break;
             }
         }
     }
 
-    void Attack() { 
-        
-    }
 
     void Buff0(int stat, float time)
     {

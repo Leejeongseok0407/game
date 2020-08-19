@@ -12,4 +12,6 @@ public class Wizard : Attacker
     {
         unitType = 1;
     }
+
+    
 }
