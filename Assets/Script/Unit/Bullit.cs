@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullit : MonoBehaviour
 {
     [SerializeField] Vector3 targetPosition = Vector3.zero;
-    [SerializeField] GameObject ExplosionParticle = null;
+    [SerializeField] protected GameObject ExplosionParticle = null;
     [SerializeField] float bullitSpeed;
     [SerializeField] int bullitDmg;
     [SerializeField] float bullitRange;
