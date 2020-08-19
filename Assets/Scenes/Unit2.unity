@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 172368531}
   m_Layer: 0
   m_Name: New Sprite
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172368528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.45932513, y: 2.5874243, z: -4.057382}
+  m_LocalPosition: {x: -1.66, y: 2.5874243, z: -4.057382}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -213,7 +213,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2b861760dd3c0418e7b051748af9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletRanger: {fileID: 1072174231}
-  BulletWizard: {fileID: 434802150}
+  RangerBullet: {fileID: 0}
+  WizardBullet: {fileID: 0}
   setBulletSize: 10
 --- !u!1 &275613874
 GameObject:
@@ -390,29 +390,27 @@ MonoBehaviour:
   attackSpeed: 0
   bullet: {fileID: 0}
   bulletContainer: {fileID: 0}
---- !u!114 &275613879
-MonoBehaviour:
+--- !u!50 &275613879
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275613874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d66de4f0093d5f4b8a77b53481f3714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 0
-  gene: 00000000000000000000000000000000
-  unitType: 0
-  skillNum: 0
-  coolDownTime: 0
-  isCoolDown: 0
-  power: 0
-  constitutionNu: 0
-  attackSpeed: 0
-  bullet: {fileID: 0}
-  bulletContainer: {fileID: 0}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 3
 --- !u!1 &434802150
 GameObject:
   m_ObjectHideFlags: 0
