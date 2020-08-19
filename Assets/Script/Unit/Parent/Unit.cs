@@ -8,10 +8,18 @@ public class Unit : MonoBehaviour
     [SerializeField] protected int[] gene = new int[4];
     [SerializeField] protected int unitType;
 
-   /* protected void Start()
+    void SKill()
     {
-        this.GetComponent<CircleCollider2D>().radius = range;
-    }*/
+        if (!CoolDownCheck())
+            return;
+        DoSkill();
+        CoolDown();
+    }
+
+    /* protected void Start()
+     {
+         this.GetComponent<CircleCollider2D>().radius = range;
+     }*/
 
     //차후에 온 콜라이더로
     void Detect() { 

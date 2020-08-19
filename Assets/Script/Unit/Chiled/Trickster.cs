@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Trickster : Buffer
 {
-/*# gene[4]  += {0,0,1,0}
-# unitType  = 2
-# skillNum  = 0~2*/
+    /*# gene[4]  += {0,0,0,1}
+    # unitType  = 3
+    # skillNum  = 3~5*/
+
+    private void Awake()
+    {
+        unitType = 3;
+    }
 }

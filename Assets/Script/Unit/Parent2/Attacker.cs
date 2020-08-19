@@ -5,11 +5,11 @@ using UnityEngine;
 public class Attacker : Unit
 {
     [SerializeField] protected int power;
-    [SerializeField] protected float attackSpeed;
     [SerializeField] protected int constitutionNum;
+    [SerializeField] protected float attackSpeed;
 
     void Attack() { 
-    
+        
     }
     void Buff0(int stat, float time)
     {

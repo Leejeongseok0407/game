@@ -9,5 +9,8 @@ public class Ranger : Attacker
     unitType  = 0
     constitutionNum = 0~2
     */
-
+    private void Awake()
+    {
+        unitType = 0;
+    }
 }
