@@ -18,7 +18,7 @@ public class Ranger : Attacker
     void Update()
     {
         TimeGo();
-        if (enemyList.Count > 0)
+        if (MonsterList.Count > 0)
         {
             TagetSet();
             Attack();

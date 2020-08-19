@@ -15,7 +15,7 @@ public class Attacker : Unit
     //차후에 총알 담을것.
     [SerializeField] protected GameObject bulletContainer = null;
     protected GameObject closeEnemy = null;
-    protected List<GameObject> enemyList = new List<GameObject>();
+    protected List<GameObject> MonsterList = new List<GameObject>();
     protected float fTime = 0;
     protected int dmg;
     protected float attackCycle;
@@ -46,7 +46,7 @@ public class Attacker : Unit
 
     protected void TagetSet()
     {
-        GameObject target = enemyList[0];
+        GameObject target = MonsterList[0];
     }
 
     protected void Attack()
@@ -79,18 +79,22 @@ public class Attacker : Unit
     //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
-            enemyList.Add(collision.gameObject);
+        if (collision.tag == "Monster")
+        {
+            MonsterList.Add(collision.gameObject);
+            Debug.Log("Tageton");
+        }
     }
 
     //트리거 범위에서 몬스터 나갈 경우 몬스터를 리스트에서 제거
     private void OnTriggerExit2D(Collider2D collision)
     {
-        foreach (GameObject rangeOutEnemy in enemyList)
+        foreach (GameObject rangeOutEnemy in MonsterList)
         {
             if (rangeOutEnemy == collision.gameObject)
             {
-                enemyList.Remove(rangeOutEnemy);
+                MonsterList.Remove(rangeOutEnemy);
+                Debug.Log("TagetExit");
                 break;
             }
         }
