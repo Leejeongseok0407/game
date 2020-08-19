@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BullitRanger : Bullit
+public class BulletRanger : Bullet
 {
 
     private void Update()

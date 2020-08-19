@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BullitWizard : Bullit
+public class BulletWizard : Bullet
 {
     [SerializeField] float ExplosionRange;
     private void Update()

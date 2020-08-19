@@ -18,7 +18,7 @@ public class Attacker : Unit
 
     private void Start()
     {
-        AttackCycleinitializer();
+        AttackCycleInitializer();
     }
     
     //attackSpeed를 사이클로 변환

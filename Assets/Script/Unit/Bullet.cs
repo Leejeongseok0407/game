@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullit : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [SerializeField] Vector3 targetPosition = Vector3.zero;
     [SerializeField] protected GameObject ExplosionParticle = null;
@@ -29,7 +29,7 @@ public class Bullit : MonoBehaviour
     public void SetTargetPosition(Vector3 Target) {
         targetPosition = Target;
     }
-    public int GetBullitDmg() {
+    public int GetBulletDmg() {
         return bullitDmg;
     }
 

@@ -24,7 +24,7 @@ public abstract class Monster : MonoBehaviour
     {
         if (col.tag == "Bullet")
         {
-            int bulletDmg = col.GetComponent<Bullet>().GetDmg();
+            int bulletDmg = col.GetComponent<Bullet>().GetBulletDmg();
             ReceiveDmg(bulletDmg);
         }
     }
