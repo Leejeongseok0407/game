@@ -7,6 +7,9 @@ public class Unit : MonoBehaviour
     [SerializeField] protected float range;
     [SerializeField] protected int[] gene = new int[4];
     [SerializeField] protected int unitType;
+    [SerializeField] protected int skillNum;
+    [SerializeField] protected float coolDownTime;
+    [SerializeField] protected bool isCoolDown;
 
     void SKill()
     {
@@ -14,6 +17,32 @@ public class Unit : MonoBehaviour
             return;
         DoSkill();
         CoolDown();
+    }
+
+    bool CoolDownCheck()
+    {
+        return isCoolDown;
+    }
+
+    //스킬의 구현
+    void DoSkill()
+    {
+        switch (skillNum)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }
+    //쿨타임 체크를 코루틴으로
+    void CoolDown()
+    {
+
     }
 
     /* protected void Start()
