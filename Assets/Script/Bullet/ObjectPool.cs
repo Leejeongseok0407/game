@@ -30,8 +30,10 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < initCount; i++)
         {
-            BulletRangerQueue.Enqueue(CreateNewBulletRanger());
-            BulletWizardQueue.Enqueue(CreateNewBulletWizard());
+            if (RangerBullet != null)
+                BulletRangerQueue.Enqueue(CreateNewBulletRanger());
+            if (WizardBullet != null)
+                BulletWizardQueue.Enqueue(CreateNewBulletWizard());
         }
     }
 
