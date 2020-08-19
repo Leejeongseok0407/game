@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletWizard : Bullet
 {
     [SerializeField] float ExplosionRange;
+    [SerializeField] GameObject ExplosionParticle = null;
     private void Update()
     {
         MoveBullit();
@@ -27,8 +28,9 @@ public class BulletWizard : Bullet
                     //몬스터 데미지 입는거 적용
                 }
             }
-
+            //ExplosionParticle생성.
             Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
     }
