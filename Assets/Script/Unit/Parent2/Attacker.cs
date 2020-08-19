@@ -49,7 +49,32 @@ public class Attacker : Unit
         GameObject target = enemyList[0];
     }
 
-    interface Attack { }
+    protected void Attack()
+    {
+        if (target != null && fTime > attackCycle)
+        {
+            //시간을 초기화함.
+            fTime = 0.0f;
+            //불릿을 생성
+            //차후에 생성에서 켜짐으로 바꿔야함.
+            var aBullet = CallBullet();
+            
+            //불릿 데미지 설정
+            aBullet.GetComponent<Bullet>().SetBulletDmg(dmg);
+            //방향 벡터 생성
+            Vector3 dir = (target.transform.position - transform.position).normalized;
+            //앵글을 생성하여 회전각을 생성
+            float angle = Vector2.SignedAngle(Vector2.down, dir);
+            Quaternion qut = new Quaternion();
+            qut.eulerAngles = new Vector3(0, 0, angle);
+            aBullet.transform.rotation = qut;
+            aBullet.transform.position += dir * 1.0f;
+        }
+    }
+
+    virtual protected GameObject CallBullet() {
+        return Instantiate(bullet, transform.position, Quaternion.identity, transform);
+    }
 
     //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.
     private void OnTriggerEnter2D(Collider2D collision)
