@@ -23,9 +23,8 @@ public class Wizard : Attacker
             Attack();
         }
     }
-    protected override GameObject CallBullet()
+    protected override Bullet CallBullet()
     {
-//      return ObjectPool.GetBulletWizard();
-        return null;
+        return ObjectPool.GetBullet(this.gameObject);
     }
 }

@@ -71,9 +71,9 @@ public class Attacker : Unit
         }
     }
 
-    virtual protected GameObject CallBullet() {
+    virtual protected Bullet CallBullet() {
         Debug.Log("오버라이딩 필요함.");
-        return null;
+        return ObjectPool.GetBullet(this.gameObject);
     }
 
     //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.
