@@ -27,6 +27,6 @@ public class Ranger : Attacker
 
     protected override Bullet CallBullet() {
         //return ObjectPool.GetBulletRanger();
-        return ObjectPool.GetBullet(this.gameObject);
+        return ObjectPoolT.GetBullet(this.gameObject);
     }
 }

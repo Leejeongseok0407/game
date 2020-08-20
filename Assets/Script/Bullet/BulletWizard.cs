@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletWizard : Bullet
 {
-    [SerializeField] float ExplosionRange;
+    [SerializeField] float ExplosionRange = 2.0f;
     [SerializeField] GameObject ExplosionParticle = null;
     private void Update()
     {

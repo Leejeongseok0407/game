@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float bullitSpeed = 0.1f;
     [SerializeField] int bullitDmg = 0;
     //나중에 이건 맵 크기에서 최대로 갈 경우나 아님 맵 밖으로 나가면 제거되게 해야함.
-    [SerializeField] float bullitRange;
+    [SerializeField] float bullitRange = 1.5f;
 
     
     //총알 움직이는 함수
