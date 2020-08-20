@@ -8,7 +8,7 @@ public class MonsterManager : MonoBehaviour
     List<Transform> curStageWayPoint;
     void SetWayPoint(int stage)
     {
-        curStageWayPoint = wayPointArr[stage].GetComponent<WayPoint>().GetWayPoint(stage);
+       // curStageWayPoint = wayPointArr[stage].GetComponent<WayPoint>().GetWayPoint(stage);
     }
 
     void Start()
