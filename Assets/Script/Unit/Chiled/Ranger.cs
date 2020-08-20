@@ -26,7 +26,7 @@ public class Ranger : Attacker
     }
 
     protected override GameObject CallBullet() {
-
-        return Instantiate(bullet, transform.position, Quaternion.identity, transform);
+        //      return ObjectPool.GetBulletRanger();
+        return null;
     }
 }

@@ -102,6 +102,7 @@ public class ObjectPool : MonoBehaviour
         obj.transform.SetParent(Instance.transform);
         Instance.BulletRangerQueue.Enqueue(obj);
     }
+
     public static void ReturnBulletWizard(BulletWizard obj)
     {
         obj.gameObject.SetActive(false);

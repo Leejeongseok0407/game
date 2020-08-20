@@ -13,7 +13,7 @@ public class Attacker : Unit
 
     [SerializeField] protected GameObject bullet = null;
     //차후에 총알 담을것.
-    [SerializeField] protected GameObject bulletContainer = null;
+    [SerializeField] protected GameObject poolingContainer = null;
     protected GameObject closeEnemy = null;
     protected List<GameObject> MonsterList = new List<GameObject>();
     protected float fTime = 0;
@@ -58,7 +58,6 @@ public class Attacker : Unit
             //불릿을 생성
             //차후에 생성에서 켜짐으로 바꿔야함.
             var aBullet = CallBullet();
-            
             //불릿 데미지 설정
             aBullet.GetComponent<Bullet>().SetBulletDmg(dmg);
             //방향 벡터 생성
@@ -73,7 +72,8 @@ public class Attacker : Unit
     }
 
     virtual protected GameObject CallBullet() {
-        return Instantiate(bullet, transform.position, Quaternion.identity, transform);
+        Debug.Log("오버라이딩 필요함.");
+        return null;
     }
 
     //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.
