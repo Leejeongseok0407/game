@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class MonsterManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    List<GameObject> wayPointArr = new List<GameObject>();
+    List<Transform> curStageWayPoint;
+    void SetWayPoint(int stage)
     {
-        
+        curStageWayPoint = wayPointArr[stage].GetComponent<WayPoint>().GetWayPoint(stage);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+
     }
+
+    
 }

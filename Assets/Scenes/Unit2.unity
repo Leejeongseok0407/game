@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2b861760dd3c0418e7b051748af9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RangerBullet: {fileID: 0}
-  WizardBullet: {fileID: 0}
+  RangerBullet: {fileID: 1072174231}
+  WizardBullet: {fileID: 434802150}
   setBulletSize: 10
 --- !u!1 &275613874
 GameObject:
@@ -389,7 +389,7 @@ MonoBehaviour:
   constitutionNu: 0
   attackSpeed: 0
   bullet: {fileID: 0}
-  bulletContainer: {fileID: 0}
+  poolingContainer: {fileID: 0}
 --- !u!50 &275613879
 Rigidbody2D:
   serializedVersion: 4
