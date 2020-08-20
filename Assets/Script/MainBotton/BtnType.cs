@@ -5,40 +5,51 @@ using UnityEngine;
 
 public class BtnType : MonoBehaviour
 {
-    public BTNType currentType;
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
+    public CanvasGroup creditGroup;
     bool isSound;
 
-    public void OnBtnClick() 
+  
+
+    public void OnBtnClick(string BTN)
     {
-        switch (currentType) 
+        switch (BTN)
         {
-            case BTNType.Start:
+            case "Start":
                 UnityEngine.Debug.Log("새게임");
                 break;
-            case BTNType.Option:
+            case "Option":
                 CanvasGroupOn(optionGroup);
                 CanvasGroupOff(mainGroup);
                 UnityEngine.Debug.Log("설정");
                 break;
 
-            case BTNType.Sound:
+            case "Sound":
                 UnityEngine.Debug.Log("소리");
                 break;
-                //소리사용시 수정해야함
-            case BTNType.Back:
+            //소리사용시 수정해야함
+            case "Back":
                 CanvasGroupOn(mainGroup);
                 CanvasGroupOff(optionGroup);
                 UnityEngine.Debug.Log("뒤로");
                 break;
-            case BTNType.Credit:
+            case "Credit":
+                CanvasGroupOn(creditGroup);
+                CanvasGroupOff(mainGroup);
                 UnityEngine.Debug.Log("크레딧");
                 break;
-            case BTNType.Quit:
+            case "Quit":
                 Application.Quit();
                 UnityEngine.Debug.Log("종료");
                 break;
+            case "Quitcredit":
+                CanvasGroupOn(mainGroup);
+                CanvasGroupOff(creditGroup);
+                Application.Quit();
+                UnityEngine.Debug.Log("시작화면");
+                break;
+
         }
     }
 

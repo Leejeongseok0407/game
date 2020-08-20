@@ -9,7 +9,8 @@ Option,
 Sound,
 Back,
 Credit,
-Quit
+Quit,
+Quitcredit
 }
 
 public class MainUI : MonoBehaviour
