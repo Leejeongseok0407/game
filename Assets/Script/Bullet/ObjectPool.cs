@@ -8,14 +8,14 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool Instance;
     //새로 만들 오브젝트
     [SerializeField]
-    private GameObject RangerBullet;
+    private GameObject bulletRanger;
     [SerializeField]
-    private GameObject WizardBullet;
+    private GameObject bulletWizard;
     [SerializeField]
     private int setBulletSize = 10;
     //총알을 담을 큐
-    Queue<BulletRanger> BulletRangerQueue = new Queue<BulletRanger>();
-    Queue<BulletWizard> BulletWizardQueue = new Queue<BulletWizard>();
+    Queue<Bullet> BulletRangerQueue = new Queue<Bullet>();
+    Queue<Bullet> BulletWizardQueue = new Queue<Bullet>();
 
 
 
@@ -30,83 +30,137 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < initCount; i++)
         {
-            if (RangerBullet != null)
-                BulletRangerQueue.Enqueue(CreateNewBulletRanger());
-            if (WizardBullet != null)
-                BulletWizardQueue.Enqueue(CreateNewBulletWizard());
+            if (bulletRanger != null)
+                BulletRangerQueue.Enqueue(FirstCreateNewBullet(0));
+            if(bulletWizard != null)
+                BulletRangerQueue.Enqueue(FirstCreateNewBullet(1));
+            else
+                Debug.Log("불릿을 할당해 주세요");
+        }
+    }
+    private Bullet FirstCreateNewBullet(int type)
+    {
+        if (type == 0)
+        {
+            var newRangerBullet = Instantiate(bulletRanger).GetComponent<BulletRanger>();
+            newRangerBullet.gameObject.SetActive(false);
+            newRangerBullet.transform.SetParent(transform);
+            return newRangerBullet;
+        }
+        else if (type == 1)
+        {
+            var newWizardBullet = Instantiate(bulletWizard).GetComponent<BulletWizard>();
+            newWizardBullet.gameObject.SetActive(false);
+            newWizardBullet.transform.SetParent(transform);
+            return newWizardBullet;
+        }
+        else
+        {
+            Debug.Log("잘못된 오브젝트");
+            return null;
         }
     }
 
     //총알을 만들고 비활성화 + 자식으로 넣어주는 시켜주는 역활
-    private BulletRanger CreateNewBulletRanger()
+    private Bullet CreateNewBullet(GameObject callObject)
     {
-        var newObj = Instantiate(RangerBullet).GetComponent<BulletRanger>();
-        newObj.gameObject.SetActive(false);
-        newObj.transform.SetParent(transform);
-        return newObj;
+        if (callObject.GetComponent<Ranger>() != null)
+        {
+            var newRangerBullet = Instantiate(bulletRanger).GetComponent<BulletRanger>();
+            newRangerBullet.gameObject.SetActive(false);
+            newRangerBullet.transform.SetParent(transform);
+            return newRangerBullet;
+        }
+        else if (callObject.GetComponent<Wizard>() != null)
+        {
+            var newWizardBullet = Instantiate(bulletWizard).GetComponent<BulletWizard>();
+            newWizardBullet.gameObject.SetActive(false);
+            newWizardBullet.transform.SetParent(transform);
+            return newWizardBullet;
+        }
+        else
+        {
+            Debug.Log("잘못된 오브젝트");
+            return null;
+        }
     }
-    private BulletWizard CreateNewBulletWizard()
-    {
-        var newObj = Instantiate(WizardBullet).GetComponent<BulletWizard>();
-        newObj.gameObject.SetActive(false);
-        newObj.transform.SetParent(transform);
-        return newObj;
-    }
-
 
     //요청한 자에게 꺼내주는 함수
-    public static BulletRanger GetBulletRanger()
+    public static Bullet GetBullet(GameObject callObject)
     {
-        //총알이 있으면 총알을 할당해줌.
-        if (Instance.BulletRangerQueue.Count > 0)
+
+        if (callObject.GetComponent<Ranger>() != null)
         {
-            var obj = Instance.BulletRangerQueue.Dequeue();
-            obj.transform.SetParent(null);
-            obj.gameObject.SetActive(true);
-            return obj;
+            //총알이 있으면 총알을 할당해줌.
+            if (Instance.BulletRangerQueue.Count > 0)
+            {
+                var obj = Instance.BulletRangerQueue.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            //총알이 없으면 총알 생성해줌.
+            else
+            {
+                var newObj = Instance.CreateNewBullet(callObject);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
         }
-        //총알이 없으면 총알 생성해줌.
+        else if (callObject.GetComponent<Wizard>() != null)
+        {
+            //총알이 있으면 총알을 할당해줌.
+            if (Instance.BulletWizardQueue.Count > 0)
+            {
+                var obj = Instance.BulletWizardQueue.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            //총알이 없으면 총알 생성해줌.
+            else
+            {
+                var newObj = Instance.CreateNewBullet(callObject);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
         else
         {
-            var newObj = Instance.CreateNewBulletRanger();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
+            Debug.Log("잘못된 오브젝트");
+            return null;
         }
-    }
-    public static BulletWizard GetBulletWizard()
-    {
-        //총알이 있으면 총알을 할당해줌.
-        if (Instance.BulletWizardQueue.Count > 0)
-        {
-            var obj = Instance.BulletWizardQueue.Dequeue();
-            obj.transform.SetParent(null);
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-        //총알이 없으면 총알 생성해줌.
-        else
-        {
-            var newObj = Instance.CreateNewBulletWizard();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
-        }
+
     }
 
 
     //반환해주는 함수
-    public static void ReturnBulletRanger(BulletRanger obj)
+    public static void ReturnBulletRanger(Bullet obj)
+    {
+        if (obj.GetComponent<BulletRanger>() != null)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(Instance.transform);
+            Instance.BulletRangerQueue.Enqueue(obj);
+        }
+        else if (obj.GetComponent<BulletWizard>() != null)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(Instance.transform);
+            Instance.BulletWizardQueue.Enqueue(obj);
+        }
+        else
+            Debug.Log("잘못된 오브젝트");
+    }
+
+
+
+    /*if (obj.GetComponent<BulletRanger>() != null)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
         Instance.BulletRangerQueue.Enqueue(obj);
-    }
-
-    public static void ReturnBulletWizard(BulletWizard obj)
-    {
-        obj.gameObject.SetActive(false);
-        obj.transform.SetParent(Instance.transform);
-        Instance.BulletWizardQueue.Enqueue(obj);
-    }
+    }*/
 }

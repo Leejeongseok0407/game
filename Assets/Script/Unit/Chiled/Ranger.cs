@@ -25,8 +25,8 @@ public class Ranger : Attacker
         }
     }
 
-    protected override GameObject CallBullet() {
-        //      return ObjectPool.GetBulletRanger();
-        return null;
+    protected override Bullet CallBullet() {
+        //return ObjectPool.GetBulletRanger();
+        return ObjectPool.GetBullet(this.gameObject);
     }
 }
