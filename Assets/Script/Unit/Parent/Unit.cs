@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
     [SerializeField] protected float coolDownTime;
     [SerializeField] protected bool isCoolDown;
     
-    protected void SetRange() {
+    virtual protected void SetUnitType() {
         GetComponent<CircleCollider2D>().radius = range / 10f;
         Debug.Log("big");
     }
