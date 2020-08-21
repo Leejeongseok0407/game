@@ -7,13 +7,12 @@ public class Bullet : MonoBehaviour
     [SerializeField] GameObject target = null;
     [SerializeField] float bullitSpeed = 1f;
     [SerializeField] int bullitDmg = 0;
-    float hitRange = 0.5f;
-
+    protected float hitRange = 1f;
+    protected float distance;
 
     //총알 움직이는 함수
     protected void MoveBullet() {
         transform.Translate(Vector3.right * Time.deltaTime * bullitSpeed);
-        Debug.Log("moveBullet");
     }
 
     protected void LookAtBullet()
@@ -24,14 +23,14 @@ public class Bullet : MonoBehaviour
 
     }
 
+    protected void CalculateDistance() {
+
+        distance = Vector3.Distance(transform.position, target.transform.position);
+    }
+
     protected void ReturnBullet() 
     {
-        float distance = Vector3.Distance(transform.position, target.transform.position);
-        Debug.Log(distance);
-        if (distance < hitRange)
-        {
             ObjectPool.ReturnBullet(this);
-        }
     }
 
     public void SetTarget(GameObject setTarget) {

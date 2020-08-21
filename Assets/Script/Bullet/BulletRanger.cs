@@ -8,8 +8,12 @@ public class BulletRanger : Bullet
     private void Update()
     {
         MoveBullet();
-        ReturnBullet();
         LookAtBullet();
+        CalculateDistance();
+        if (distance < hitRange)
+        {
+            ReturnBullet();
+        }
     }
     
 }
