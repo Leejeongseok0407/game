@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] float bullitSpeed = 1f;
     [SerializeField] int bullitDmg = 0;
     protected int bulletType;
-    protected float hitRange = 1f;
+    protected float hitRange = 0.5f;
     protected float distance;
 
 
