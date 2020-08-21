@@ -7,8 +7,10 @@ public class Bullet : MonoBehaviour
     [SerializeField] GameObject target = null;
     [SerializeField] float bullitSpeed = 1f;
     [SerializeField] int bullitDmg = 0;
+    protected int bulletType;
     protected float hitRange = 1f;
     protected float distance;
+
 
     //총알 움직이는 함수
     protected void MoveBullet() {
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     protected void ReturnBullet() 
     {
-            ObjectPool.ReturnBullet(this);
+        ObjectPool.ReturnBullet(this, bulletType);
     }
 
     public void SetTarget(GameObject setTarget) {
