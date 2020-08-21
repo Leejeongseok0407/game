@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolT : MonoBehaviour
+public class ObjectPool : MonoBehaviour
 {
     //ObjectPool은 하나만 있어야 하기 때문(싱글톤을 이용함)
-    public static ObjectPoolT Instance;
+    public static ObjectPool Instance;
     //새로 만들 오브젝트
     [SerializeField]
-    private GameObject bulletRanger = null;
+    private GameObject bulletRanger;
     [SerializeField]
-    private GameObject bulletWizard = null;
+    private GameObject bulletWizard;
     [SerializeField]
     private int setBulletSize = 10;
     //총알을 담을 큐
