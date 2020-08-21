@@ -6,7 +6,7 @@ public class WayPoint : MonoBehaviour
 {
     List<Transform> points = new List<Transform>();
     
-    List<Transform> GetWayPoint()
+    public List<Transform> GetWayPoint()
     {
         return points;
     } 

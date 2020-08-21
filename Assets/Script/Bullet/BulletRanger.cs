@@ -7,8 +7,9 @@ public class BulletRanger : Bullet
 
     private void Update()
     {
-        MoveBullit();
-        RemoveBullit();
+        MoveBullet();
+        ReturnBullet();
+        LookAtBullet();
     }
     
 }

@@ -4,31 +4,41 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] Vector3 targetPosition = Vector3.zero;
-    [SerializeField] float bullitSpeed = 0.1f;
+    [SerializeField] GameObject target = null;
+    [SerializeField] float bullitSpeed = 1f;
     [SerializeField] int bullitDmg = 0;
-    //나중에 이건 맵 크기에서 최대로 갈 경우나 아님 맵 밖으로 나가면 제거되게 해야함.
-    [SerializeField] float bullitRange;
+    float hitRange = 0.5f;
 
-    
+
     //총알 움직이는 함수
-    protected void MoveBullit() {
-        transform.Translate(targetPosition * Time.deltaTime * bullitSpeed);
+    protected void MoveBullet() {
+        Vector3 dir = Vector3.Normalize(target.transform.position - transform.position); 
+        transform.Translate(dir * Time.deltaTime * bullitSpeed);
+        Debug.Log("moveBullet");
+    }
+
+    protected void LookAtBullet()
+    {
+        Vector3 lookDir = target.transform.position;
+        lookDir.z = 0;
+        transform.rotation.SetLookRotation(lookDir);
     }
 
     //불릿이 일정거리 벗어나면 없어지는 함수
-    protected void RemoveBullit() 
+    protected void ReturnBullet() 
     {
         // 나와 부모의 사이가 일정거리(1.5f) 도달하면 삭제
-        float distance = Vector3.Distance(transform.position, transform.parent.position);
-        if (distance > bullitRange)
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        Debug.Log(distance);
+        if (distance < hitRange)
         {
-            Destroy(gameObject);
+            ObjectPool.ReturnBullet(this);
         }
     }
 
-    public void SetTargetPosition(Vector3 Target) {
-        targetPosition = Target;
+    public void SetTarget(GameObject setTarget) {
+        Debug.Log("setBulletTarget");
+        target = setTarget;
     }
     public void SetBulletDmg(int dmg)
     {

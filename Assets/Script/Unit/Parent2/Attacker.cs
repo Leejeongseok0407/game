@@ -5,21 +5,21 @@ using UnityEngine;
 public class Attacker : Unit
 {
     [Tooltip("파워로 Dmg계산")]
-    [SerializeField] protected int power;
-    [Tooltip("dd")]
-    [SerializeField] protected int constitutionNu;
+    [SerializeField] protected int power = 1;
+    /*[Tooltip("dd")]
+    [SerializeField] protected int constitutionNu;*/
     [Tooltip("분당 몇회 타격")]
-    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float attackSpeed = 60;
 
-    [SerializeField] protected GameObject bullet = null;
     //차후에 총알 담을것.
     [SerializeField] protected GameObject poolingContainer = null;
+
     protected GameObject closeEnemy = null;
-    protected List<GameObject> MonsterList = new List<GameObject>();
+    [SerializeField] protected List<GameObject> MonsterList = new List<GameObject>();
     protected float fTime = 0;
     protected int dmg;
     protected float attackCycle;
-    protected GameObject target = null;
+    [SerializeField] protected GameObject target = null;
 
     private void Start()
     {
@@ -46,11 +46,13 @@ public class Attacker : Unit
 
     protected void TagetSet()
     {
-        GameObject target = MonsterList[0];
+        Debug.Log("Attacker TargetSet");
+        target = MonsterList[0];
     }
 
     protected void Attack()
     {
+        Debug.Log("Attack");
         if (target != null && fTime > attackCycle)
         {
             //시간을 초기화함.
@@ -60,14 +62,7 @@ public class Attacker : Unit
             var aBullet = CallBullet();
             //불릿 데미지 설정
             aBullet.GetComponent<Bullet>().SetBulletDmg(dmg);
-            //방향 벡터 생성
-            Vector3 dir = (target.transform.position - transform.position).normalized;
-            //앵글을 생성하여 회전각을 생성
-            float angle = Vector2.SignedAngle(Vector2.down, dir);
-            Quaternion qut = new Quaternion();
-            qut.eulerAngles = new Vector3(0, 0, angle);
-            aBullet.transform.rotation = qut;
-            aBullet.transform.position += dir * 1.0f;
+            aBullet.GetComponent<Bullet>().SetTarget(target);
         }
     }
 
