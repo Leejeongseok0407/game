@@ -86,7 +86,6 @@ public class ObjectPool : MonoBehaviour
                 return newObj;
             }
         }
-        /*
         else if (type == 1)
         {
             //총알이 있으면 총알을 할당해줌.
@@ -107,7 +106,7 @@ public class ObjectPool : MonoBehaviour
                 newObj.transform.SetParent(callObject.transform);
                 return newObj;
             }
-        }*/
+        }
         else
         {
             Debug.Log("잘못된 타입");

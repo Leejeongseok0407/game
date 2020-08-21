@@ -21,6 +21,6 @@ public class Ranger : Attacker
     }
     override protected void SetUnitType()
     {
-        unitType = 1;
+        unitType = 0;
     }
 }
