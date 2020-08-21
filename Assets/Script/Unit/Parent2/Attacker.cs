@@ -11,8 +11,6 @@ public class Attacker : Unit
     [Tooltip("분당 몇회 타격")]
     [SerializeField] protected float attackSpeed = 60;
 
-    //차후에 총알 담을것.
-    [SerializeField] protected GameObject poolingContainer = null;
 
     protected GameObject closeEnemy = null;
     [SerializeField] protected List<GameObject> MonsterList = new List<GameObject>();
@@ -66,9 +64,8 @@ public class Attacker : Unit
         }
     }
 
-    virtual protected Bullet CallBullet() {
-        Debug.Log("오버라이딩 필요함.");
-        return ObjectPool.GetBullet(this.gameObject);
+    protected Bullet CallBullet() {
+        return ObjectPool.GetBullet(this.gameObject, unitType);
     }
 
     //트리거 범위에 몬스터 들어올 경우 몬스터를 리스트에 삽입한다.

@@ -9,11 +9,6 @@ public class Ranger : Attacker
     unitType  = 0
     constitutionNum = 0~2
     */
-    private void Awake()
-    {
-        unitType = 0;
-        SetRange();
-    }
 
     void Update()
     {
@@ -24,10 +19,8 @@ public class Ranger : Attacker
             Attack();
         }
     }
-
-    protected override Bullet CallBullet() {
-        Debug.Log("CallBullet");
-        //return ObjectPool.GetBulletRanger();
-        return ObjectPool.GetBullet(this.gameObject);
+    override protected void SetUnitType()
+    {
+        unitType = 1;
     }
 }
