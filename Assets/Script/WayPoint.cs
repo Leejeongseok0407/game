@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WayPoint : MonoBehaviour
 {
+    [SerializeField]
     List<Transform> points = new List<Transform>();
     
     public List<Transform> GetWayPoint()
