@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class BtnType : MonoBehaviour
 {
@@ -26,7 +27,15 @@ public class BtnType : MonoBehaviour
                 break;
 
             case "Sound":
-                UnityEngine.Debug.Log("소리");
+                if (isSound) 
+                {
+                    Debug.Log("soundOFF");
+                }
+                else
+                {
+                    Debug.Log("SoundOn");
+                }
+                isSound = !isSound;
                 break;
             //소리사용시 수정해야함
             case "Back":
