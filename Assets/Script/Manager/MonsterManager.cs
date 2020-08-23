@@ -4,9 +4,10 @@ using UnityEngine;
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
+    float stageStartTime;
+    bool isStageStart;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
-    List<GameObject> wayPointArr = new List<GameObject>();
-    [SerializeField]
+    List<WayPoint> wayPointArr = new List<WayPoint>();
     List<Transform> curStageWayPoint;
 
     [SerializeField]
@@ -28,12 +29,21 @@ public class MonsterManager : MonoBehaviour
     Queue<Monster> heavyMonsterQueue = new Queue<Monster>();
     Queue<Monster> armoredMonsterQueue = new Queue<Monster>();
 
+    int stage = 0;
+
     void Awake()
     {
         Instance = this;
+        this.isStageStart = false;
         Initialize();
+
+        List<Dictionary<string,object>> mobTable = CSVReader.Read ("MobTableCsv");
     }
 
+    void Start()
+    {
+        SetWayPoint(0);
+    }
     private void Initialize()
     {
         for (int i = 0; i < lightMonsterMaxSize; i++)
@@ -45,84 +55,109 @@ public class MonsterManager : MonoBehaviour
         for (int i = 0; i < mediumMonsterMaxSize; i++)
         {
             if (mediumMonster != null)
-                lightMonsterQueue.Enqueue(FirstCreateNewMonster(1));
+                mediumMonsterQueue.Enqueue(FirstCreateNewMonster(1));
+        }
+
+        for (int i = 0; i < heavyMonsterMaxSize; i++)
+        {
+            if (heavyMonster != null)
+                heavyMonsterQueue.Enqueue(FirstCreateNewMonster(2));
         }
 
         for (int i = 0; i < mediumMonsterMaxSize; i++)
         {
-            if (mediumMonster != null)
-                lightMonsterQueue.Enqueue(FirstCreateNewMonster(2));
-        }
-
-        for (int i = 0; i < mediumMonsterMaxSize; i++)
-        {
-            if (mediumMonster != null)
-                lightMonsterQueue.Enqueue(FirstCreateNewMonster(3));
+            if (armoredMonster != null)
+                armoredMonsterQueue.Enqueue(FirstCreateNewMonster(3));
         }
     }
 
     private Monster FirstCreateNewMonster(int type)
     {
+        Monster newMonster = null;
         switch(type)
         {
             case 0:
-                var newLightMonster = Instantiate(lightMonster).GetComponent<Light>();
-                newLightMonster.gameObject.SetActive(false);
-                newLightMonster.transform.position = enqueuedMonsterPos;
-                return newLightMonster;
+                newMonster = Instantiate(lightMonster).GetComponent<Light>();
+                break;
             case 1:
-                var newMediumMonster = Instantiate(mediumMonster).GetComponent<Medium>();
-                newMediumMonster.gameObject.SetActive(false);
-                newMediumMonster.transform.position = enqueuedMonsterPos;
-                return newMediumMonster;
+                newMonster = Instantiate(mediumMonster).GetComponent<Medium>();
+                break;
             case 2:
-                var newHeavyMonster = Instantiate(mediumMonster).GetComponent<Heavy>();
-                newHeavyMonster.gameObject.SetActive(false);
-                newHeavyMonster.transform.position = enqueuedMonsterPos;
-                return newHeavyMonster;
+                newMonster = Instantiate(heavyMonster).GetComponent<Heavy>();
+                break;
             case 3:
-                var newArmoredMonster = Instantiate(mediumMonster).GetComponent<Armored>();
-                newArmoredMonster.gameObject.SetActive(false);
-                newArmoredMonster.transform.position = enqueuedMonsterPos;
-                return newArmoredMonster;
+                newMonster = Instantiate(heavyMonster).GetComponent<Armored>();
+                break;
             default:
                 Debug.Log("not valid type");
                 return null;
         }
+
+        newMonster.gameObject.SetActive(false);
+        newMonster.transform.position = enqueuedMonsterPos;
+        return newMonster;
     }
     
-    public void SetMonster(int type)   //
+    public void AllocateMonster(int type, int hp, int armor)
     {
+        Monster calledMonster = null;
         switch(type)
         {
             case 0:
-                var calledLightMonster = Instance.lightMonsterQueue.Dequeue();
-                calledLightMonster.gameObject.SetActive(true);
-                calledLightMonster.transform.position = curStageWayPoint[0].transform.position;
+                calledMonster = Instance.lightMonsterQueue.Dequeue();         
                 break;
             case 1:
-                var calledMediumMonster = Instance.mediumMonsterQueue.Dequeue();
-                calledMediumMonster.gameObject.SetActive(true);
-                calledMediumMonster.transform.position = curStageWayPoint[0].transform.position;
+                calledMonster = Instance.mediumMonsterQueue.Dequeue();
                 break;
             case 2:
-                var calledHeavyMonster = Instance.heavyMonsterQueue.Dequeue();
-                calledHeavyMonster.gameObject.SetActive(true);
-                calledHeavyMonster.transform.position = curStageWayPoint[0].transform.position;
+                calledMonster = Instance.heavyMonsterQueue.Dequeue();
                 break;
             case 3:
-                var calledArmoredMonster = Instance.armoredMonsterQueue.Dequeue();
-                calledArmoredMonster.gameObject.SetActive(true);
-                calledArmoredMonster.transform.position = curStageWayPoint[0].transform.position;
+                calledMonster = Instance.armoredMonsterQueue.Dequeue();
                 break;
             default:
                 Debug.Log("not valid type");
                 break;
         }
+        calledMonster.SetMonster(type, hp, armor, curStageWayPoint);
+        calledMonster.gameObject.SetActive(true);
+        calledMonster.transform.position = curStageWayPoint[0].transform.position;
     }
 
+    public void FreeMonster(Monster allocatedMonster)
+    {
+        int type = allocatedMonster.GetMonsterType();
+        allocatedMonster.gameObject.SetActive(false);
+        allocatedMonster.transform.position = enqueuedMonsterPos;
+
+        switch(type)
+        {
+            case -2:
+            Instance.lightMonsterQueue.Enqueue(allocatedMonster);
+            break;
+            case -1:
+            Instance.mediumMonsterQueue.Enqueue(allocatedMonster);
+            break;
+            case 0:
+            Instance.heavyMonsterQueue.Enqueue(allocatedMonster);
+            break;
+            case 1:
+            Instance.armoredMonsterQueue.Enqueue(allocatedMonster);
+            break;
+            default:
+            break;
+        }
+    }
+
+    public void MakeMonsterWave(int stage, int type, int volume, float delay)
+    {
+        for ()
+        {
+            
+        }
+    }
     void SetWayPoint(int stage)
     {
-        curStageWayPoint = wayPointArr[stage].GetComponent<WayPoint>().GetWayPoint();
+        curStageWayPoint = wayPointArr[stage].GetWayPoint();
     }
 }
