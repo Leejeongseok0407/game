@@ -8,13 +8,12 @@ public class UnitContainerManager : MonoBehaviour
     [SerializeField] GameObject unitInventory;
     
     [SerializeField] List<Unit> unitMapArry;
-    [SerializeField] public List<Unit> unitInventoryArry;
+    [SerializeField] List<Unit> unitInventoryArry;
 
-    private void Start()
+    private void Awake()
     {
         SetArry();
     }
-
     public void SetArry() {
         for (int i = 0; i < unitInventory.transform.childCount; i++)
         {
