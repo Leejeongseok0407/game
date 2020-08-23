@@ -46,16 +46,16 @@ public abstract class Monster : MonoBehaviour
         switch(type)
         {
             case 0:
-            velocity = 2;
+            velocity = 3f;
             break;
             case 1:
-            velocity = 1.5f;
+            velocity = 2f;
             break;
             case 2:
-            velocity = 1;
+            velocity = 1.5f;
             break;
             case 3:
-            velocity = 1;
+            velocity = 1.5f;
             break;
             default:
             break;
