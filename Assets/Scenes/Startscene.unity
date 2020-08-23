@@ -1872,7 +1872,7 @@ MonoBehaviour:
   mainGroup: {fileID: 529348776}
   optionGroup: {fileID: 229269350}
   creditGroup: {fileID: 229757352}
-  musicsource: {fileID: 0}
+  musicsource: {fileID: 78226355}
 --- !u!95 &1257363568
 Animator:
   serializedVersion: 3
