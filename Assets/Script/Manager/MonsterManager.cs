@@ -151,9 +151,8 @@ public class MonsterManager : MonoBehaviour
 
     public void MakeMonsterWave(int stage, int type, int volume, float delay)
     {
-        for ()
+        for (int i = 0; i < volume; i++)
         {
-            
         }
     }
     void SetWayPoint(int stage)
