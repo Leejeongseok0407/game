@@ -4,37 +4,55 @@ using UnityEngine;
 
 public abstract class Monster : MonoBehaviour
 {
-    protected int mType;
+    protected int type;
     int hp;
+    int armor;
     int velocity;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    Vector3 preCalculatedVectorToNextWayPoint;
+    Vector3 curVectorToNextWayPoint;
+    List<Transform> curStageWayPoint;
+    int nextWayPointIndex;
     void Update()
     {
-
+        TrackWayPoint();
     }
 
-    void OnTriggerEnter(Collider col)
+    void TrackWayPoint()
     {
-        if (col.tag == "Bullet")
+        curVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
+        CheckArrive();
+        transform.Translate(curVectorToNextWayPoint.normalized * velocity * Time.deltaTime);
+    }
+
+    void CheckArrive()
+    {
+        if(Vector3.Dot(preCalculatedVectorToNextWayPoint, curVectorToNextWayPoint) <= 0)
         {
-            int bulletDmg = col.GetComponent<Bullet>().GetBulletDmg();
-            ReceiveDmg(bulletDmg);
+            nextWayPointIndex++;
+            preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
+        }
+        if(curStageWayPoint.Count == nextWayPointIndex-1)
+        {
+            Death();
         }
     }
-
-    void Death()
+    public void SetMonster(int type, int hp, int armor, List<Transform> curStageWayPoint)
     {
-        Destroy(this);
+        this.type = type;
+        this.hp = hp;
+        this.armor = armor;
+        this.curStageWayPoint = curStageWayPoint;
+        this.nextWayPointIndex = 1;
+
+        this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
     }
 
-    void ReceiveDmg(int damage)
+    Vector3 CalculateVectorToNextWayPoint(Vector3 curPosition)
+    {
+        return curStageWayPoint[nextWayPointIndex].position-curPosition;
+    }
+    public void ReceiveDmg(int damage)
     {
         hp -= damage;
         if (hp < 1)
@@ -42,7 +60,12 @@ public abstract class Monster : MonoBehaviour
             Death();
         }
     }
-
-    void TrackWaypoints()
-    { }
+    public int GetMonsterType()
+    {
+        return type;
+    }
+    void Death()
+    {
+        MonsterManager.Instance.FreeMonster(this);
+    }    
 }
