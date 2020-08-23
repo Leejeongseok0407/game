@@ -5,25 +5,24 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public static MapManager Instance;
-    bool isStageChanged;
-    int curStage;
+
+    int mapMaxHeight;
+    int mapMaxWidth;
     List<Dictionary<string,object>> curStageMapInfo = null;
     void Awake()
     {
         Instance = this;
-        isStageChanged = false;
-        curStage = 0;
-        SetStageMap(0);
     }
     // Update is called once per frame
-    void SetStageMap(int stage)
+    public void SetStageMap(int stage)
     {
-        curStageMapInfo = CsvReader.Read ("Stage0MapStatusCsv");
-        SetMapMatrix();
-    }
-
-    void SetMapMatrix()
-    {
-
+        switch(stage)
+        {
+            case 0:
+            curStageMapInfo = CsvReader.Read ("Stage0MapStatusCsv");
+            break;
+            default:
+            break;
+        }
     }
 }
