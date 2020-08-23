@@ -10,8 +10,7 @@ public class BtnType : MonoBehaviour
     public CanvasGroup optionGroup;
     public CanvasGroup creditGroup;
     bool isSound;
-
-  
+    public AudioSource musicsource;
 
     public void OnBtnClick(string BTN)
     {
@@ -27,12 +26,14 @@ public class BtnType : MonoBehaviour
                 break;
 
             case "Sound":
-                if (isSound) 
+                if (isSound)
                 {
+                    //musicsource.volume = 0f;
                     Debug.Log("soundOFF");
                 }
                 else
                 {
+                    //musicsource.volume = 1f;
                     Debug.Log("SoundOn");
                 }
                 isSound = !isSound;
