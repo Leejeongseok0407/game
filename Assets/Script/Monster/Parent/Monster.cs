@@ -7,7 +7,7 @@ public abstract class Monster : MonoBehaviour
     protected int type;
     int hp;
     int armor;
-    int velocity;
+    float velocity;
 
     Vector3 preCalculatedVectorToNextWayPoint;
     Vector3 curVectorToNextWayPoint;
@@ -30,15 +30,36 @@ public abstract class Monster : MonoBehaviour
         if(Vector3.Dot(preCalculatedVectorToNextWayPoint, curVectorToNextWayPoint) <= 0)
         {
             nextWayPointIndex++;
-            preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
-        }
-        if(curStageWayPoint.Count == nextWayPointIndex-1)
-        {
-            Death();
+            if(nextWayPointIndex == curStageWayPoint.Count)
+            {
+                Debug.Log("I'm Arrive");
+                Death();
+            }
+            else
+            {
+                preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
+            }
         }
     }
     public void SetMonster(int type, int hp, int armor, List<Transform> curStageWayPoint)
     {
+        switch(type)
+        {
+            case 0:
+            velocity = 2;
+            break;
+            case 1:
+            velocity = 1.5f;
+            break;
+            case 2:
+            velocity = 1;
+            break;
+            case 3:
+            velocity = 1;
+            break;
+            default:
+            break;
+        }
         this.type = type;
         this.hp = hp;
         this.armor = armor;
@@ -46,6 +67,7 @@ public abstract class Monster : MonoBehaviour
         this.nextWayPointIndex = 1;
 
         this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
+        Debug.Log("Monster Type" + this.type + "Allocated");
     }
 
     Vector3 CalculateVectorToNextWayPoint(Vector3 curPosition)
@@ -67,5 +89,6 @@ public abstract class Monster : MonoBehaviour
     void Death()
     {
         MonsterManager.Instance.FreeMonster(this);
+        Debug.Log("I'm Dead");
     }    
 }

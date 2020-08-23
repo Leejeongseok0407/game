@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
     float stageStartTime;
-    bool isStageStart;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
+    [SerializeField]
     List<WayPoint> wayPointArr = new List<WayPoint>();
     List<Transform> curStageWayPoint;
+    List<Dictionary<string,object>> mobInfo = null;
+    List<Dictionary<string,object>> curStageWaveInfo = null;
 
     [SerializeField]
     private GameObject lightMonster = null;
@@ -29,21 +32,14 @@ public class MonsterManager : MonoBehaviour
     Queue<Monster> heavyMonsterQueue = new Queue<Monster>();
     Queue<Monster> armoredMonsterQueue = new Queue<Monster>();
 
-    int stage = 0;
-
     void Awake()
     {
         Instance = this;
-        this.isStageStart = false;
         Initialize();
 
-        List<Dictionary<string,object>> mobTable = CSVReader.Read ("MobTableCsv");
+        mobInfo = CsvReader.Read ("MobInfoCsv");
     }
 
-    void Start()
-    {
-        SetWayPoint(0);
-    }
     private void Initialize()
     {
         for (int i = 0; i < lightMonsterMaxSize; i++)
@@ -64,11 +60,12 @@ public class MonsterManager : MonoBehaviour
                 heavyMonsterQueue.Enqueue(FirstCreateNewMonster(2));
         }
 
-        for (int i = 0; i < mediumMonsterMaxSize; i++)
+        for (int i = 0; i < armoredMonsterMaxSize; i++)
         {
             if (armoredMonster != null)
                 armoredMonsterQueue.Enqueue(FirstCreateNewMonster(3));
         }
+        Debug.Log("Init Complete");
     }
 
     private Monster FirstCreateNewMonster(int type)
@@ -78,15 +75,19 @@ public class MonsterManager : MonoBehaviour
         {
             case 0:
                 newMonster = Instantiate(lightMonster).GetComponent<Light>();
+                Debug.Log("Light Instantiate");
                 break;
             case 1:
                 newMonster = Instantiate(mediumMonster).GetComponent<Medium>();
+                Debug.Log("Medium Instantiate");
                 break;
             case 2:
                 newMonster = Instantiate(heavyMonster).GetComponent<Heavy>();
+                Debug.Log("Heavy Instantiate");
                 break;
             case 3:
-                newMonster = Instantiate(heavyMonster).GetComponent<Armored>();
+                newMonster = Instantiate(armoredMonster).GetComponent<Armored>();
+                Debug.Log("Armored Instantiate");
                 break;
             default:
                 Debug.Log("not valid type");
@@ -147,16 +148,62 @@ public class MonsterManager : MonoBehaviour
             default:
             break;
         }
+        Debug.Log("Monster is Free!");
     }
 
-    public void MakeMonsterWave(int stage, int type, int volume, float delay)
+    IEnumerator MakeMonsterWave(int stage, int type, int volume, float delay)
     {
         for (int i = 0; i < volume; i++)
         {
+            switch(type)
+            {
+                case 0:
+                AllocateMonster(type, (int)mobInfo[stage]["HpLight"], (int)mobInfo[stage]["ArmorLight"]);
+                break;
+                case 1:
+                AllocateMonster(type, (int)mobInfo[stage]["HpMedium"], (int)mobInfo[stage]["ArmorMedium"]);
+                break;
+                case 2:
+                AllocateMonster(type, (int)mobInfo[stage]["HpHeavy"], (int)mobInfo[stage]["ArmorHeavy"]);
+                break;
+                case 3:
+                AllocateMonster(type, (int)mobInfo[stage]["HpHeavy"], (int)mobInfo[stage]["ArmorHeavy"]);
+                break;
+                default:
+                break;
+            }
+            
+            yield return new WaitForSeconds(delay);
         }
     }
     void SetWayPoint(int stage)
     {
         curStageWayPoint = wayPointArr[stage].GetWayPoint();
+    }
+
+    public void SetStageWaveInfo(int stage)
+    {
+        SetWayPoint(stage);
+        switch(stage)
+        {
+            case 0:
+            curStageWaveInfo = CsvReader.Read ("Stage0WaveCsv");
+            break;
+            default:
+            break;
+        }
+    }
+
+    public IEnumerator StartMonsterWave(int stage)
+    {
+        float curTime = 0;
+        float nextWaveTime;
+        for(int i =0; i< curStageWaveInfo.Count; i++)
+        {
+            nextWaveTime = Convert.ToSingle(curStageWaveInfo[i]["Time"]);
+            yield return new WaitForSeconds(nextWaveTime-curTime);
+            curTime = nextWaveTime;
+            StartCoroutine(MakeMonsterWave(stage, (int)curStageWaveInfo[i]["Type"], (int)curStageWaveInfo[i]["Volume"], Convert.ToSingle(curStageWaveInfo[i]["Delay"])));
+        }
     }
 }
