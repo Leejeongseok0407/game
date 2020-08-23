@@ -22,7 +22,8 @@ public class StageManager : MonoBehaviour
     }
     void SetStageInfo(int stage)
     {
-        MonsterManager.Instance.SetStageWaveInfo(0);
+        MapManager.Instance.SetStageMap(stage);
+        MonsterManager.Instance.SetStageWaveInfo(stage);
     }
 
     

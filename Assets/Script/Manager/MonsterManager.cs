@@ -133,16 +133,16 @@ public class MonsterManager : MonoBehaviour
 
         switch(type)
         {
-            case -2:
+            case 0:
             Instance.lightMonsterQueue.Enqueue(allocatedMonster);
             break;
-            case -1:
+            case 1:
             Instance.mediumMonsterQueue.Enqueue(allocatedMonster);
             break;
-            case 0:
+            case 2:
             Instance.heavyMonsterQueue.Enqueue(allocatedMonster);
             break;
-            case 1:
+            case 3:
             Instance.armoredMonsterQueue.Enqueue(allocatedMonster);
             break;
             default:
@@ -167,7 +167,7 @@ public class MonsterManager : MonoBehaviour
                 AllocateMonster(type, (int)mobInfo[stage]["HpHeavy"], (int)mobInfo[stage]["ArmorHeavy"]);
                 break;
                 case 3:
-                AllocateMonster(type, (int)mobInfo[stage]["HpHeavy"], (int)mobInfo[stage]["ArmorHeavy"]);
+                AllocateMonster(type, (int)mobInfo[stage]["HpArmored"], (int)mobInfo[stage]["ArmorArmored"]);
                 break;
                 default:
                 break;
