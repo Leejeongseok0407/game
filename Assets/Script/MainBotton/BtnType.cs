@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 public class BtnType : MonoBehaviour
@@ -17,6 +18,7 @@ public class BtnType : MonoBehaviour
         switch (BTN)
         {
             case "Start":
+                SceneManager.LoadScene(1);
                 UnityEngine.Debug.Log("새게임");
                 break;
             case "Option":

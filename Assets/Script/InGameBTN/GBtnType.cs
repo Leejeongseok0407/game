@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GBtnType : MonoBehaviour
@@ -33,12 +34,13 @@ public class GBtnType : MonoBehaviour
                 isSound = !isSound;
                 break;
 
-            case "Back":
+            case "Resume":
                 CanvasGroupOn(GmainGroup);
                 CanvasGroupOff(GoptionGroup);
                 break;
 
             case "Quit":
+                SceneManager.LoadScene(0);
 
                 break;
         }
