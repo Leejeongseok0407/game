@@ -6,7 +6,9 @@ public class UnitContainerManager : MonoBehaviour
 {
     [SerializeField] GameObject unitMap;
     [SerializeField] GameObject unitInventory;
-    
+
+    [SerializeField] SlotInventory slotInventory;
+
     [SerializeField] List<Unit> unitMapArry;
     [SerializeField] List<Unit> unitInventoryArry;
 
@@ -14,6 +16,7 @@ public class UnitContainerManager : MonoBehaviour
     {
         SetArry();
     }
+
     public void SetArry() {
         for (int i = 0; i < unitInventory.transform.childCount; i++)
         {
@@ -46,5 +49,19 @@ public class UnitContainerManager : MonoBehaviour
         obj.transform.position = unitInventory.gameObject.transform.position;
         obj.transform.SetParent(unitInventory.transform);
         unitInventoryArry.Add(obj);
+    }
+
+    public void MoveToMapUnit(int index, Vector3 position)
+    {
+        if (unitInventory.transform.GetChild(index) != null)
+        {
+            position.z = 0;
+            Debug.Log("position");
+            unitInventory.transform.GetChild(index).transform.position = position;
+            unitInventory.transform.GetChild(index).SetParent(unitMap.transform);
+            slotInventory.UpdateInventory();
+        }
+        else
+            Debug.Log("에러");
     }
 }

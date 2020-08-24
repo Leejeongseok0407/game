@@ -8,8 +8,16 @@ public class SlotInventory : MonoBehaviour
     [SerializeField] Transform slotRoot;
     [SerializeField] List<Slot> slots;
 
+
     private void Start()
     {
+        SetSlotInventory();
+    }
+
+    
+
+    public void SetSlotInventory() {
+        Debug.Log("SEt");
         for (int i = 0; i < slotRoot.childCount; i++)
         {
             var slot = slotRoot.GetChild(i).GetComponent<Slot>();
@@ -21,5 +29,17 @@ public class SlotInventory : MonoBehaviour
             slots.Add(slot);
         }
     }
-    
+    public void UpdateInventory()
+    {
+        Debug.Log("Update");
+        for (int i = 0; i < slots.Count; i++)
+        {
+            var slot = slots[i];
+            slot.SetIndex(i);
+            if (i < UnitContainer.ReadUnitArry().Count)
+                slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
+            else
+                slot.SetUnit(null);
+        }
+    }
 }
