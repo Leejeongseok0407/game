@@ -28,12 +28,12 @@ public class BtnType : MonoBehaviour
             case "Sound":
                 if (isSound)
                 {
-                    musicsource.volume = 0f;
+                    //musicsource.volume = 0f;
                     Debug.Log("soundOFF");
                 }
                 else
                 {
-                    musicsource.volume = 1f;
+                    //musicsource.volume = 1f;
                     Debug.Log("SoundOn");
                 }
                 isSound = !isSound;
