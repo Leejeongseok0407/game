@@ -162,5 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ce9cfeb2077bb49890091b8d2338c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
   image: {fileID: 7014826821893753113}
+  index: 0
+  SlotInventory: {fileID: 0}
+  UnitContainerManager: {fileID: 0}

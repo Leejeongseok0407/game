@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     //ObjectPool은 하나만 있어야 하기 때문(싱글톤을 이용함)
-    public static ObjectPool Instance;
+    public static ObjectPool ObjectPoolInstance;
     //새로 만들 오브젝트
     [SerializeField]
     private GameObject bulletRanger = null;
@@ -21,7 +21,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        ObjectPoolInstance = this;
         Initialize(setBulletSize);
     }
 
@@ -68,9 +68,9 @@ public class ObjectPool : MonoBehaviour
         if (type == 0)
         {
             //총알이 있으면 총알을 할당해줌.
-            if (Instance.BulletRangerQueue.Count > 0)
+            if (ObjectPoolInstance.BulletRangerQueue.Count > 0)
             {
-                var obj = Instance.BulletRangerQueue.Dequeue();
+                var obj = ObjectPoolInstance.BulletRangerQueue.Dequeue();
                 obj.transform.position = callObject.transform.position;
                 obj.transform.SetParent(callObject.transform);
                 obj.gameObject.SetActive(true);
@@ -79,7 +79,7 @@ public class ObjectPool : MonoBehaviour
             //총알이 없으면 총알 생성해줌.
             else
             {
-                var newObj = Instance.CreateNewBullet(type);
+                var newObj = ObjectPoolInstance.CreateNewBullet(type);
                 newObj.transform.position = callObject.transform.position;
                 newObj.gameObject.SetActive(true);
                 newObj.transform.SetParent(callObject.transform);
@@ -89,9 +89,9 @@ public class ObjectPool : MonoBehaviour
         else if (type == 1)
         {
             //총알이 있으면 총알을 할당해줌.
-            if (Instance.BulletWizardQueue.Count > 0)
+            if (ObjectPoolInstance.BulletWizardQueue.Count > 0)
             {
-                var obj = Instance.BulletWizardQueue.Dequeue();
+                var obj = ObjectPoolInstance.BulletWizardQueue.Dequeue();
                 obj.transform.position = callObject.transform.position;
                 obj.transform.SetParent(callObject.transform);
                 obj.gameObject.SetActive(true);
@@ -100,7 +100,7 @@ public class ObjectPool : MonoBehaviour
             //총알이 없으면 총알 생성해줌.
             else
             {
-                var newObj = Instance.CreateNewBullet(type);
+                var newObj = ObjectPoolInstance.CreateNewBullet(type);
                 newObj.transform.position = callObject.transform.position;
                 newObj.gameObject.SetActive(true);
                 newObj.transform.SetParent(callObject.transform);
@@ -122,16 +122,16 @@ public class ObjectPool : MonoBehaviour
         {
             Debug.Log("Retunr");
             obj.gameObject.SetActive(false);
-            obj.transform.position = Instance.gameObject.transform.position;
-            obj.transform.SetParent(Instance.transform);
-            Instance.BulletRangerQueue.Enqueue(obj);
+            obj.transform.position = ObjectPoolInstance.gameObject.transform.position;
+            obj.transform.SetParent(ObjectPoolInstance.transform);
+            ObjectPoolInstance.BulletRangerQueue.Enqueue(obj);
         }
         else if (type == 1)
         {
             obj.gameObject.SetActive(false);
-            obj.transform.position = Instance.gameObject.transform.position;
-            obj.transform.SetParent(Instance.transform);
-            Instance.BulletWizardQueue.Enqueue(obj);
+            obj.transform.position = ObjectPoolInstance.gameObject.transform.position;
+            obj.transform.SetParent(ObjectPoolInstance.transform);
+            ObjectPoolInstance.BulletWizardQueue.Enqueue(obj);
         }
     }
 
