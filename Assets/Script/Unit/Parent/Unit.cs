@@ -22,7 +22,7 @@ public class Unit : MonoBehaviour
     }
     protected void SetUnitRange() {
         GetComponent<CircleCollider2D>().radius = range / 10f;
-        Debug.Log("big");
+
     }
 
     void SKill()

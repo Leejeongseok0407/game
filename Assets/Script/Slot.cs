@@ -20,7 +20,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
 
         if (inputUnit == null)
         {
-            Debug.Log("Null");
+            image.transform.localScale = Vector3.zero;
             unit = null;
             image = null;
             gameObject.name = "Null";
@@ -30,6 +30,21 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
             unit = inputUnit;
             image.sprite = inputUnit.GetComponentInChildren<SpriteRenderer>().sprite;
             gameObject.name = inputUnit.name;
+        }
+    }
+
+    public void UpdateSlot()
+    {
+        if (unit == null)
+        {
+            image = null;
+            gameObject.name = "Null";
+        }
+        else
+        {
+            image.sprite = unit.GetComponentInChildren<SpriteRenderer>().sprite;
+            gameObject.name = unit.name;
+            image.transform.localScale = Vector3.zero;
         }
     }
 
@@ -60,13 +75,16 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
         //UnitContainerManager.MoveToMapUnit(index);
         //아님 원위치
         //else
-        transform.GetChild(0).position = transform.position;
-        Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
-        positionTmp.z = 0;
-        unit.transform.position = positionTmp;
-        unit.transform.SetParent(null);
-        unit = null;
-        image.transform.localScale = Vector3.zero;
+        if (unit != null)
+        {
+            transform.GetChild(0).position = transform.position;
+            Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
+            positionTmp.z = 0;
+            Debug.Log(Vector3Int.RoundToInt(positionTmp)+" " + positionTmp);
+            unit.transform.position = Vector3Int.RoundToInt(positionTmp);
+            unit.transform.SetParent(null);
+            unit = null;
+            image.transform.localScale = Vector3.zero;
+        }
     }
-
 }

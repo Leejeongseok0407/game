@@ -36,7 +36,6 @@ public class Bullet : MonoBehaviour
     }
 
     public void SetTarget(GameObject setTarget) {
-        Debug.Log("setBulletTarget");
         target = setTarget;
     }
     public void SetBulletDmg(int dmg)

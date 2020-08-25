@@ -14,32 +14,26 @@ public class SlotInventory : MonoBehaviour
         SetSlotInventory();
     }
 
-    
-
     public void SetSlotInventory() {
-        Debug.Log("SEt");
+
         for (int i = 0; i < slotRoot.childCount; i++)
         {
             var slot = slotRoot.GetChild(i).GetComponent<Slot>();
             slot.SetIndex(i);
             if (i < UnitContainer.ReadUnitArry().Count)
                 slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
-            else
+            else 
                 slot.SetUnit(null);
             slots.Add(slot);
         }
     }
+
     public void UpdateInventory()
     {
         Debug.Log("Update");
         for (int i = 0; i < slots.Count; i++)
         {
-            var slot = slots[i];
-            slot.SetIndex(i);
-            if (i < UnitContainer.ReadUnitArry().Count)
-                slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
-            else
-                slot.SetUnit(null);
+            slotRoot.GetChild(i).GetComponent<Slot>().UpdateSlot();
         }
     }
 }

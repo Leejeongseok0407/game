@@ -44,13 +44,11 @@ public class Attacker : Unit
 
     protected void TagetSet()
     {
-        Debug.Log("Attacker TargetSet");
         target = MonsterList[0];
     }
 
     protected void Attack()
     {
-        Debug.Log("Attack");
         if (target != null && fTime > attackCycle)
         {
             //시간을 초기화함.
@@ -74,7 +72,6 @@ public class Attacker : Unit
         if (collision.tag == "Monster")
         {
             MonsterList.Add(collision.gameObject);
-            Debug.Log("Tageton");
         }
     }
 

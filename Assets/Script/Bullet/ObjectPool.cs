@@ -64,7 +64,7 @@ public class ObjectPool : MonoBehaviour
     //요청한 자에게 꺼내주는 함수
     public static Bullet GetBullet(GameObject callObject, int type)
     {
-        Debug.Log("GetBullet");
+
         if (type == 0)
         {
             //총알이 있으면 총알을 할당해줌.
@@ -120,7 +120,6 @@ public class ObjectPool : MonoBehaviour
     {
         if (type == 0)
         {
-            Debug.Log("Retunr");
             obj.gameObject.SetActive(false);
             obj.transform.position = ObjectPoolInstance.gameObject.transform.position;
             obj.transform.SetParent(ObjectPoolInstance.transform);
