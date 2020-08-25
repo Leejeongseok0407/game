@@ -6,8 +6,8 @@ public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
     float stageStartTime;
-
     int allocatedMonsterNum;
+    bool isAllWaveAllocated;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     [SerializeField]
     List<WayPoint> wayPointArr = new List<WayPoint>();
@@ -42,6 +42,13 @@ public class MonsterManager : MonoBehaviour
         mobInfo = CsvReader.Read ("MobInfoCsv");
     }
 
+    void Update()
+    {
+        if(allocatedMonsterNum == 0 && isAllWaveAllocated == true)
+        {
+            StageManager.Instance.EndStage();
+        }
+    }
     private void Initialize()
     {
         for (int i = 0; i < lightMonsterMaxSize; i++)
