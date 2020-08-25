@@ -6,6 +6,8 @@ public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
     float stageStartTime;
+
+    int allocatedMonsterNum;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     [SerializeField]
     List<WayPoint> wayPointArr = new List<WayPoint>();
@@ -123,6 +125,7 @@ public class MonsterManager : MonoBehaviour
         calledMonster.SetMonster(type, hp, armor, curStageWayPoint);
         calledMonster.gameObject.SetActive(true);
         calledMonster.transform.position = curStageWayPoint[0].transform.position;
+        allocatedMonsterNum++;
     }
 
     public void FreeMonster(Monster allocatedMonster)
@@ -148,7 +151,7 @@ public class MonsterManager : MonoBehaviour
             default:
             break;
         }
-        Debug.Log("Monster is Free!");
+        allocatedMonsterNum--;
     }
 
     IEnumerator MakeMonsterWave(int stage, int type, int volume, float delay)
@@ -172,7 +175,6 @@ public class MonsterManager : MonoBehaviour
                 default:
                 break;
             }
-            
             yield return new WaitForSeconds(delay);
         }
     }
@@ -198,6 +200,7 @@ public class MonsterManager : MonoBehaviour
     {
         float curTime = 0;
         float nextWaveTime;
+        allocatedMonsterNum = 0;
         for(int i =0; i< curStageWaveInfo.Count; i++)
         {
             nextWaveTime = Convert.ToSingle(curStageWaveInfo[i]["Time"]);
