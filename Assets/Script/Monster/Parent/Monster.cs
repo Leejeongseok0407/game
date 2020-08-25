@@ -8,6 +8,7 @@ public abstract class Monster : MonoBehaviour
     int hp;
     int armor;
     float velocity;
+    float offset;
 
     Vector3 preCalculatedVectorToNextWayPoint;
     Vector3 curVectorToNextWayPoint;
@@ -20,15 +21,17 @@ public abstract class Monster : MonoBehaviour
 
     void TrackWayPoint()
     {
-        curVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
+        
+        offset += velocity * Time.deltaTime;
+        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].position, curStageWayPoint[nextWayPointIndex].position, offset/Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].position, curStageWayPoint[nextWayPointIndex].position));
         CheckArrive();
-        transform.Translate(curVectorToNextWayPoint.normalized * velocity * Time.deltaTime);
     }
 
     void CheckArrive()
     {
-        if(Vector3.Dot(preCalculatedVectorToNextWayPoint, curVectorToNextWayPoint) <= 0)
+        if(Vector3.Distance(transform.position, curStageWayPoint[nextWayPointIndex].position) == 0)
         {
+            offset = 0;
             nextWayPointIndex++;
             if(nextWayPointIndex == curStageWayPoint.Count)
             {
@@ -37,7 +40,7 @@ public abstract class Monster : MonoBehaviour
             }
             else
             {
-                preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(transform.position);
+                Debug.Log("NextWayPointIndex = " + nextWayPointIndex);
             }
         }
     }
@@ -66,7 +69,7 @@ public abstract class Monster : MonoBehaviour
         this.curStageWayPoint = curStageWayPoint;
         this.nextWayPointIndex = 1;
 
-        this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
+        //this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
         Debug.Log("Monster Type" + this.type + "Allocated");
     }
 
