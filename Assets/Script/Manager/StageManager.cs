@@ -6,25 +6,29 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance;
     
-
+    int curStage;
     void Awake()
     {
         Instance = this;
+        curStage = 0;
     }
     void Start()
     {
-        StartStage(0);
+        StartStage();
     }
-    void StartStage(int stage)
+    void StartStage()
     {
-        SetStageInfo(stage);
-        StartCoroutine(MonsterManager.Instance.StartMonsterWave(stage));
+        SetStageInfo();
+        StartCoroutine(MonsterManager.Instance.StartMonsterWave(curStage));
     }
-    void SetStageInfo(int stage)
+    void SetStageInfo()
     {
-        MapManager.Instance.SetStageMap(stage);
-        MonsterManager.Instance.SetStageWaveInfo(stage);
+        MapManager.Instance.SetStageMap(curStage);
+        MonsterManager.Instance.SetStageWaveInfo(curStage);
     }
 
-    
+    public void EndStage()
+    {
+
+    }
 }
