@@ -13,12 +13,13 @@ public class Tilemap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GridLayout gridLayout = transform.parent.GetComponentInParent<GridLayout>();
+ 
+    }
 
-
-        Vector3Int cellPosition = gridLayout.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        //transform.position = gridLayout.CellToWorld(cellPosition);
-        Debug.Log(gridLayout.CellToWorld(cellPosition));
-        //Debug.Log(transform.position);
+    public Vector3 GetTilePositionByIndex(int row, int col)
+    {
+        float tilePositionX = transform.position.x + 5 - row;
+        float tilePositionY = transform.position.y + col - 10;
+        return new Vector3(tilePositionX, tilePositionY, 0);
     }
 }
