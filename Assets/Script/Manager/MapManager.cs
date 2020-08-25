@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MapManager : MonoBehaviour
 {
     public static MapManager Instance;
 
-    int mapMaxHeight;
-    int mapMaxWidth;
+    int xCorrect = -10;
+    int yCorrect = 5;
+
+    float xAnchor = 0.5f;
+    float yAnchor = 0.5f;
     List<Dictionary<string,object>> curStageMapStatus = null;
     List<Dictionary<string,object>> curStageWayPoint = null;
 
@@ -16,6 +20,8 @@ public class MapManager : MonoBehaviour
 
     [SerializeField]
     GameObject point;
+    [SerializeField]
+    List<GameObject> wayPointArr;
     void Awake()
     {
         Instance = this;
@@ -23,8 +29,6 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(GetTilePositionByIndex(0,0));
-        Debug.Log(GetTilePositionByIndex(5,10));
     }
     // Update is called once per frame
     public void SetStageMap(int stage)
@@ -33,17 +37,45 @@ public class MapManager : MonoBehaviour
         {
             case 0:
             curStageMapStatus = CsvReader.Read ("Stage0MapStatusCsv");
-            curStageWayPoint = CsvReader.Read("Stage0WayPointIndex");
+            curStageWayPoint = CsvReader.Read("Stage0WayPointIndexCsv");
             break;
             default:
             break;
         }
+        CreateWayPoint();
     }
 
+    public int GetMapTileStatus(int row, int col)
+    {
+        return (int)curStageMapStatus[row][Convert.ToString(col)];
+    }
+    public void CreateWayPoint()
+    {
+        for(int i = 0; i < curStageWayPoint.Count; i++)
+        {
+            Vector3 tempPointPosition = GetTilePositionByIndex((int)curStageWayPoint[i]["Row"], (int)curStageWayPoint[i]["Column"]);
+            GameObject tempPoint = Instantiate(point, tempPointPosition, Quaternion.identity);
+            wayPointArr.Add(tempPoint);
+        }
+    }
     public Vector3 GetTilePositionByIndex(int row, int col)
     {
-        float tilePositionX = curStageMap.transform.position.x + 5 - row;
-        float tilePositionY = curStageMap.transform.position.y + col - 10;
+        float tilePositionX = curStageMap.transform.position.x + col + xCorrect + xAnchor;
+        float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
         return new Vector3(tilePositionX, tilePositionY, 0);
     }
+
+    public void DestroyWayPoint()
+    {
+        for(int i = 0; i < wayPointArr.Count; i++)
+        {
+            Destroy(wayPointArr[i]);
+        }
+        wayPointArr.Clear();
+    }
+
+    public List<GameObject> GetWayPoint()
+    {
+        return wayPointArr;
+    } 
 }
