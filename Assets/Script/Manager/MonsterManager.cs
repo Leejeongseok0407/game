@@ -9,9 +9,6 @@ public class MonsterManager : MonoBehaviour
     int allocatedMonsterNum;
     bool isAllWaveAllocated;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
-    [SerializeField]
-    List<WayPoint> wayPointArr = new List<WayPoint>();
-    List<Transform> curStageWayPoint;
     List<Dictionary<string,object>> mobInfo = null;
     List<Dictionary<string,object>> curStageWaveInfo = null;
 
@@ -129,9 +126,9 @@ public class MonsterManager : MonoBehaviour
                 Debug.Log("not valid type");
                 break;
         }
-        calledMonster.SetMonster(type, hp, armor, curStageWayPoint);
+        calledMonster.SetMonster(type, hp, armor, MapManager.Instance.GetWayPoint());
         calledMonster.gameObject.SetActive(true);
-        calledMonster.transform.position = curStageWayPoint[0].transform.position;
+        calledMonster.transform.position = MapManager.Instance.GetWayPoint()[0].transform.position;
         allocatedMonsterNum++;
     }
 
@@ -185,14 +182,8 @@ public class MonsterManager : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
     }
-    void SetWayPoint(int stage)
-    {
-        curStageWayPoint = wayPointArr[stage].GetWayPoint();
-    }
-
     public void SetStageWaveInfo(int stage)
     {
-        SetWayPoint(stage);
         switch(stage)
         {
             case 0:
