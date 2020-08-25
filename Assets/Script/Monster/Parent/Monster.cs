@@ -12,7 +12,7 @@ public abstract class Monster : MonoBehaviour
 
     Vector3 preCalculatedVectorToNextWayPoint;
     Vector3 curVectorToNextWayPoint;
-    List<Transform> curStageWayPoint;
+    List<GameObject> curStageWayPoint;
     int nextWayPointIndex;
     void Update()
     {
@@ -23,13 +23,13 @@ public abstract class Monster : MonoBehaviour
     {
         
         offset += velocity * Time.deltaTime;
-        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].position, curStageWayPoint[nextWayPointIndex].position, offset/Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].position, curStageWayPoint[nextWayPointIndex].position));
+        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position, offset/Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position));
         CheckArrive();
     }
 
     void CheckArrive()
     {
-        if(Vector3.Distance(transform.position, curStageWayPoint[nextWayPointIndex].position) == 0)
+        if(Vector3.Distance(transform.position, curStageWayPoint[nextWayPointIndex].transform.position) == 0)
         {
             offset = 0;
             nextWayPointIndex++;
@@ -44,7 +44,7 @@ public abstract class Monster : MonoBehaviour
             }
         }
     }
-    public void SetMonster(int type, int hp, int armor, List<Transform> curStageWayPoint)
+    public void SetMonster(int type, int hp, int armor, List<GameObject> curStageWayPoint)
     {
         switch(type)
         {
@@ -75,7 +75,7 @@ public abstract class Monster : MonoBehaviour
 
     Vector3 CalculateVectorToNextWayPoint(Vector3 curPosition)
     {
-        return curStageWayPoint[nextWayPointIndex].position-curPosition;
+        return curStageWayPoint[nextWayPointIndex].transform.position-curPosition;
     }
     public void ReceiveDmg(int damage)
     {
