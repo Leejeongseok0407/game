@@ -10,6 +10,8 @@ public abstract class Monster : MonoBehaviour
     float velocity;
     float offset;
 
+    bool isAlive;
+
     Vector3 preCalculatedVectorToNextWayPoint;
     Vector3 curVectorToNextWayPoint;
     List<GameObject> curStageWayPoint;
@@ -63,6 +65,7 @@ public abstract class Monster : MonoBehaviour
         this.armor = armor;
         this.curStageWayPoint = curStageWayPoint;
         this.nextWayPointIndex = 1;
+        this.isAlive = true;
 
         //this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
         Debug.Log("Monster Type" + this.type + "Allocated");
@@ -86,6 +89,7 @@ public abstract class Monster : MonoBehaviour
     }
     void Death()
     {
+        this.isAlive = false;
         MonsterManager.Instance.FreeMonster(this);
     }    
 }
