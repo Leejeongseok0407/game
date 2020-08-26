@@ -44,7 +44,7 @@ public class MapManager : MonoBehaviour
         {
             case 0:
             curStageMapStatus = CsvReader.Read ("Stage" + 0 + "MapStatusCsv");
-            curStageWayPoint = CsvReader.Read("Stage0WayPointIndexCsv");
+            curStageWayPoint = CsvReader.Read("Stage" + 0 + "WayPointIndexCsv");
             break;
             default:
             break;
