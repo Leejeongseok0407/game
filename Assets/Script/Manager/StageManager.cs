@@ -29,6 +29,7 @@ public class StageManager : MonoBehaviour
 
     public void EndStage()
     {
-
+        curStage++;
+        //StartStage();
     }
 }

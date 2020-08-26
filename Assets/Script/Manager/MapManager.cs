@@ -12,8 +12,12 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     int yCorrect = 5;
 
+    const int mapHeight = 6;
+    const int mapWidth = 10;
     float xAnchor = 0.5f;
     float yAnchor = 0.5f;
+
+    int[,] mapMatrix;
     List<Dictionary<string,object>> curStageMapStatus = null;
     List<Dictionary<string,object>> curStageWayPoint = null;
 
@@ -27,6 +31,7 @@ public class MapManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        mapMatrix  = new int[mapHeight, mapWidth];
     }
 
     void Update()
@@ -38,18 +43,19 @@ public class MapManager : MonoBehaviour
         switch(stage)
         {
             case 0:
-            curStageMapStatus = CsvReader.Read ("Stage0MapStatusCsv");
+            curStageMapStatus = CsvReader.Read ("Stage" + 0 + "MapStatusCsv");
             curStageWayPoint = CsvReader.Read("Stage0WayPointIndexCsv");
             break;
             default:
             break;
         }
+        CreateMapStatusMatrix();
         CreateWayPoint();
     }
 
     public int GetMapTileStatus(int row, int col)
     {
-        return (int)curStageMapStatus[row][Convert.ToString(col)];
+        return mapMatrix[row, col];
     }
     public void CreateWayPoint()
     {
@@ -66,7 +72,7 @@ public class MapManager : MonoBehaviour
         float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
         return new Vector3(tilePositionX, tilePositionY, 0);
     }
-
+    
     public void DestroyWayPoint()
     {
         for(int i = 0; i < wayPointArr.Count; i++)
@@ -79,5 +85,21 @@ public class MapManager : MonoBehaviour
     public List<GameObject> GetWayPoint()
     {
         return wayPointArr;
-    } 
+    }
+
+    public void CreateMapStatusMatrix()
+    {
+        for(int i = 0; i < mapHeight; i++)
+        {
+            for(int j = 0; j < mapWidth; j++)
+            {
+                mapMatrix[i, j] = (int)curStageMapStatus[i][Convert.ToString(j)];
+            }
+        }
+    }
+    
+    public void SetMapMatrixStatusByIndex(int row, int col, int change)
+    {
+        mapMatrix[row, col] += change;
+    }
 }
