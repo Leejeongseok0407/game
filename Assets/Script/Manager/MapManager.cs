@@ -8,9 +8,9 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
 
     [SerializeField]
-    int xCorrect = -10;
+    float xCorrect = -10;
     [SerializeField]
-    int yCorrect = 5;
+    float yCorrect = 5;
 
     const int mapHeight = 6;
     const int mapWidth = 10;
@@ -62,6 +62,7 @@ public class MapManager : MonoBehaviour
         for(int i = 0; i < curStageWayPoint.Count; i++)
         {
             Vector3 tempPointPosition = GetTilePositionByIndex((int)curStageWayPoint[i]["Row"], (int)curStageWayPoint[i]["Column"]);
+            tempPointPosition.y -= 0.5f;
             GameObject tempPoint = Instantiate(point, tempPointPosition, Quaternion.identity);
             wayPointArr.Add(tempPoint);
         }
