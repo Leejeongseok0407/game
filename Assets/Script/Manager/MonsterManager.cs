@@ -7,7 +7,8 @@ public class MonsterManager : MonoBehaviour
     public static MonsterManager Instance;
     float stageStartTime;
     int allocatedMonsterNum;
-    bool isAllWaveAllocated;
+    int monsterNumNeedToCreate;
+    int createdMonsterNum;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     List<Dictionary<string,object>> mobInfo = null;
     List<Dictionary<string,object>> curStageWaveInfo = null;
@@ -41,8 +42,14 @@ public class MonsterManager : MonoBehaviour
 
     void Update()
     {
-        if(allocatedMonsterNum == 0 && isAllWaveAllocated == true)
+        
+    }
+
+    private void CheckStageEnd()
+    {
+        if(allocatedMonsterNum == 0 && (monsterNumNeedToCreate == createdMonsterNum))
         {
+            Debug.Log("Stage End");
             StageManager.Instance.EndStage();
         }
     }
@@ -130,6 +137,7 @@ public class MonsterManager : MonoBehaviour
         calledMonster.gameObject.SetActive(true);
         calledMonster.transform.position = MapManager.Instance.GetWayPoint()[0].transform.position;
         allocatedMonsterNum++;
+        createdMonsterNum++;
     }
 
     public void FreeMonster(Monster allocatedMonster)
@@ -156,6 +164,8 @@ public class MonsterManager : MonoBehaviour
             break;
         }
         allocatedMonsterNum--;
+
+        CheckStageEnd();
     }
 
     IEnumerator MakeMonsterWave(int stage, int type, int volume, float delay)
@@ -199,6 +209,12 @@ public class MonsterManager : MonoBehaviour
         float curTime = 0;
         float nextWaveTime;
         allocatedMonsterNum = 0;
+        monsterNumNeedToCreate = 0;
+        createdMonsterNum = 0;
+        for(int i = 0; i < curStageWaveInfo.Count; i++)
+        {
+            monsterNumNeedToCreate += (int)curStageWaveInfo[i]["Volume"];
+        }
         for(int i =0; i< curStageWaveInfo.Count; i++)
         {
             nextWaveTime = Convert.ToSingle(curStageWaveInfo[i]["Time"]);
