@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2541312452847963806}
   - component: {fileID: 1322119228890725115}
+  - component: {fileID: 2447888590062846823}
   m_Layer: 8
   m_Name: LightMonster
   m_TagString: Monster
@@ -44,6 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d12bf27a18e424daa2c3af3b61111e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &2447888590062846823
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962668833003552664}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!1 &6909844574580176726
 GameObject:
   m_ObjectHideFlags: 0
