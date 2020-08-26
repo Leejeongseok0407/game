@@ -7,7 +7,9 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance;
 
+    [SerializeField]
     int xCorrect = -10;
+    [SerializeField]
     int yCorrect = 5;
 
     float xAnchor = 0.5f;
