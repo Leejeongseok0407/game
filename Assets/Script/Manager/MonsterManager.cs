@@ -39,12 +39,6 @@ public class MonsterManager : MonoBehaviour
 
         mobInfo = CsvReader.Read ("MobInfoCsv");
     }
-
-    void Update()
-    {
-        
-    }
-
     private void CheckStageEnd()
     {
         if(allocatedMonsterNum == 0 && (monsterNumNeedToCreate == createdMonsterNum))

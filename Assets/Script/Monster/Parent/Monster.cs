@@ -35,12 +35,7 @@ public abstract class Monster : MonoBehaviour
             nextWayPointIndex++;
             if(nextWayPointIndex == curStageWayPoint.Count)
             {
-                Debug.Log("I'm Arrive");
                 Death();
-            }
-            else
-            {
-                Debug.Log("NextWayPointIndex = " + nextWayPointIndex);
             }
         }
     }
@@ -92,6 +87,5 @@ public abstract class Monster : MonoBehaviour
     void Death()
     {
         MonsterManager.Instance.FreeMonster(this);
-        Debug.Log("I'm Dead");
     }    
 }

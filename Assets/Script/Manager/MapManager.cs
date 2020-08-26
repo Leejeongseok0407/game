@@ -40,15 +40,10 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     public void SetStageMap(int stage)
     {
-        switch(stage)
-        {
-            case 0:
-            curStageMapStatus = CsvReader.Read ("Stage" + 0 + "MapStatusCsv");
-            curStageWayPoint = CsvReader.Read("Stage" + 0 + "WayPointIndexCsv");
-            break;
-            default:
-            break;
-        }
+        
+        curStageMapStatus = CsvReader.Read ("Stage" + stage + "MapStatusCsv");
+        curStageWayPoint = CsvReader.Read("Stage" + stage + "WayPointIndexCsv");
+        
         CreateMapStatusMatrix();
         CreateWayPoint();
     }
@@ -86,6 +81,7 @@ public class MapManager : MonoBehaviour
         for(int i = 0; i < wayPointArr.Count; i++)
         {
             Destroy(wayPointArr[i]);
+            Debug.Log("Waypoint" + i + "Destroy");
         }
         wayPointArr.Clear();
     }

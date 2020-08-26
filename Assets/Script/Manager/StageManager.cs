@@ -30,6 +30,7 @@ public class StageManager : MonoBehaviour
     public void EndStage()
     {
         curStage++;
+        MapManager.Instance.DestroyWayPoint();
         //StartStage();
     }
 }
