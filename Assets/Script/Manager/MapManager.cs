@@ -72,7 +72,14 @@ public class MapManager : MonoBehaviour
         float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
         return new Vector3(tilePositionX, tilePositionY, 0);
     }
-    
+    public int GetTileRowByPosition(Transform pos)
+    {
+        return Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y); 
+    }
+    public int GetTileColumnByPosition(Transform pos)
+    {
+        return Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor); 
+    }
     public void DestroyWayPoint()
     {
         for(int i = 0; i < wayPointArr.Count; i++)
