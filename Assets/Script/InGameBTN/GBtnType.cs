@@ -18,6 +18,7 @@ public class GBtnType : MonoBehaviour
             case "Option":
                 CanvasGroupOn(GoptionGroup);
                 CanvasGroupOff(GmainGroup);
+                Time.timeScale = 0;
                 break;
 
             case "Sound":
@@ -37,6 +38,7 @@ public class GBtnType : MonoBehaviour
             case "Resume":
                 CanvasGroupOn(GmainGroup);
                 CanvasGroupOff(GoptionGroup);
+                Time.timeScale = 1;
                 break;
 
             case "Quit":
