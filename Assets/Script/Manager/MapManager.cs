@@ -8,9 +8,9 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
 
     [SerializeField]
-    float xCorrect = -10;
+    float xCorrect = 0;
     [SerializeField]
-    float yCorrect = 5;
+    float yCorrect = 7;
 
     const int mapHeight = 6;
     const int mapWidth = 10;
@@ -22,8 +22,8 @@ public class MapManager : MonoBehaviour
     List<Dictionary<string,object>> curStageWayPoint = null;
 
     [SerializeField]
+    List<GameObject> stageMapList = null;
     GameObject curStageMap = null;
-
     [SerializeField]
     GameObject point;
     [SerializeField]
@@ -40,7 +40,8 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     public void SetStageMap(int stage)
     {
-        
+        Debug.Log("Current Stage = " + stage);
+        curStageMap = stageMapList[stage];
         curStageMapStatus = CsvReader.Read ("Stage" + stage + "MapStatusCsv");
         curStageWayPoint = CsvReader.Read("Stage" + stage + "WayPointIndexCsv");
         
@@ -53,6 +54,9 @@ public class MapManager : MonoBehaviour
         {
             Vector3 tempPointPosition = GetTilePositionByIndex((int)curStageWayPoint[i]["Row"], (int)curStageWayPoint[i]["Column"]);
             tempPointPosition.y -= 0.5f;
+            Debug.Log(curStageMap.transform.position);
+            Debug.Log(tempPointPosition);
+            Debug.Log("WayPoint " + i + "Created");
             GameObject tempPoint = Instantiate(point, tempPointPosition, Quaternion.identity);
             wayPointArr.Add(tempPoint);
         }
