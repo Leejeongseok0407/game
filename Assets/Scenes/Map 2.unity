@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 185796464}
   - component: {fileID: 185796463}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Stage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4195,7 +4195,7 @@ GameObject:
   - component: {fileID: 1362783935}
   - component: {fileID: 1362783934}
   m_Layer: 0
-  m_Name: Map 2
+  m_Name: Stage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
