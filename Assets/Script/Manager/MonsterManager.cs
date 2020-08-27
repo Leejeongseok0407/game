@@ -9,6 +9,8 @@ public class MonsterManager : MonoBehaviour
     int allocatedMonsterNum;
     int monsterNumNeedToCreate;
     int createdMonsterNum;
+
+    float waitTime = 5.0f;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     List<Dictionary<string,object>> mobInfo = null;
     List<Dictionary<string,object>> curStageWaveInfo = null;
@@ -203,6 +205,7 @@ public class MonsterManager : MonoBehaviour
     {
         float curTime = 0;
         float nextWaveTime;
+        yield return new WaitForSeconds(waitTime);
         allocatedMonsterNum = 0;
         monsterNumNeedToCreate = 0;
         createdMonsterNum = 0;
