@@ -34,6 +34,7 @@ public class StageManager : MonoBehaviour
     {
         MapManager.Instance.DestroyWayPoint();
         curStage++;
+        StartStage();
     }
 
     public void GoToStartScreen()
