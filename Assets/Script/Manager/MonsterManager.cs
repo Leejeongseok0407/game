@@ -191,16 +191,8 @@ public class MonsterManager : MonoBehaviour
     }
     public void SetStageWaveInfo(int stage)
     {
-        switch(stage)
-        {
-            case 0:
-            curStageWaveInfo = CsvReader.Read ("Stage0WaveCsv");
-            break;
-            default:
-            break;
-        }
+        curStageWaveInfo = CsvReader.Read ("Stage" + stage + "WaveCsv");
     }
-
     public IEnumerator StartMonsterWave(int stage)
     {
         float curTime = 0;
