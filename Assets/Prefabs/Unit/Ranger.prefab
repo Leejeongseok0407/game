@@ -144,13 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1df728cc5a8cb447b5da1dd238e250b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 50
+  range: 20
   gene: 00000000000000000000000000000000
   unitType: 0
   skillNum: 0
   coolDownTime: 0
   isCoolDown: 0
-  power: 1
+  power: 50
   attackSpeed: 60
   MonsterList: []
   target: {fileID: 0}
