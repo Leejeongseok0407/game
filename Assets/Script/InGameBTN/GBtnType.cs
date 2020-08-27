@@ -43,6 +43,7 @@ public class GBtnType : MonoBehaviour
 
             case "Quit":
                 SceneManager.LoadScene(0);
+                Time.timeScale = 1;
 
                 break;
         }
