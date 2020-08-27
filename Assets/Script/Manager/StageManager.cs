@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
     }
     void SetStageInfo()
     {
+        CameraManager.Instance.MoveCameraToStage(curStage);
         MapManager.Instance.SetStageMap(curStage);
         MonsterManager.Instance.SetStageWaveInfo(curStage);
     }
