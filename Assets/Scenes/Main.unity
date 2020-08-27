@@ -2506,9 +2506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715c391532a54dc4ba039f41f9937eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xCorrect: -5.5
-  yCorrect: 3
-  curStageMap: {fileID: 1272223968}
+  xCorrect: 0
+  yCorrect: 7
+  stageMapList:
+  - {fileID: 659603879}
+  - {fileID: 387130476}
+  - {fileID: 620167803}
   point: {fileID: 812982098104036870, guid: beb4e6816ac796e4b9a8499dab0ded58, type: 3}
   wayPointArr: []
 --- !u!1 &387130476
@@ -3154,8 +3157,6 @@ MonoBehaviour:
   - {fileID: 659603879}
   - {fileID: 387130476}
   - {fileID: 620167803}
-  xAnchor: 0
-  yAnchor: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5665,7 +5666,7 @@ Transform:
   - {fileID: 2109966598}
   - {fileID: 42888884}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676061620
 GameObject:
@@ -5845,7 +5846,7 @@ Transform:
   - {fileID: 386043511}
   - {fileID: 880698610}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827475512
 GameObject:
@@ -8205,7 +8206,7 @@ PrefabInstance:
     - target: {fileID: 1900151930830859183, guid: 8430a4eeadbb18d479e17d05daa12012,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1900151930830859183, guid: 8430a4eeadbb18d479e17d05daa12012,
         type: 3}
@@ -9690,7 +9691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1117290061
 GameObject:
@@ -19064,7 +19065,7 @@ Transform:
   - {fileID: 1823074760518754150}
   - {fileID: 1823074759339490478}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1823074760096770901
 MonoBehaviour:
