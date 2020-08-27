@@ -47,11 +47,6 @@ public class MapManager : MonoBehaviour
         CreateMapStatusMatrix();
         CreateWayPoint();
     }
-
-    public int GetMapTileStatus(int row, int col)
-    {
-        return mapMatrix[row, col];
-    }
     public void CreateWayPoint()
     {
         for(int i = 0; i < curStageWayPoint.Count; i++)
@@ -62,12 +57,7 @@ public class MapManager : MonoBehaviour
             wayPointArr.Add(tempPoint);
         }
     }
-    public Vector3 GetTilePositionByIndex(int row, int col)
-    {
-        float tilePositionX = curStageMap.transform.position.x + col + xCorrect + xAnchor;
-        float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
-        return new Vector3(tilePositionX, tilePositionY, 0);
-    }
+
     public int GetTileRowByPosition(Transform pos)
     {
         return Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y); 
@@ -76,6 +66,23 @@ public class MapManager : MonoBehaviour
     {
         return Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor); 
     }
+     public int GetMapTileStatus(int row, int col)
+    {
+        return mapMatrix[row, col];
+    }
+
+    public Vector3 GetTilePositionByIndex(int row, int col)
+    {
+        float tilePositionX = curStageMap.transform.position.x + col + xCorrect + xAnchor;
+        float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
+        return new Vector3(tilePositionX, tilePositionY, 0);
+    }
+
+    public void SetMapMatrixStatusByIndex(int row, int col, int change)
+    {
+        mapMatrix[row, col] += change;
+    }
+    
     public void DestroyWayPoint()
     {
         for(int i = 0; i < wayPointArr.Count; i++)
@@ -100,10 +107,5 @@ public class MapManager : MonoBehaviour
                 mapMatrix[i, j] = (int)curStageMapStatus[i][Convert.ToString(j)];
             }
         }
-    }
-    
-    public void SetMapMatrixStatusByIndex(int row, int col, int change)
-    {
-        mapMatrix[row, col] += change;
     }
 }
