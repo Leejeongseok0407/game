@@ -65,6 +65,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
     public void OnDrag(PointerEventData eventData)
     {
         //이미지만 마우스에게 옮겨줌.
+        Time.timeScale = 0.1f;
         transform.GetChild(0).position = eventData.position;
     }
 
@@ -75,12 +76,12 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
         //UnitContainerManager.MoveToMapUnit(index);
         //아님 원위치
         //else
+        Time.timeScale = 1f;
         if (unit != null)
         {
             transform.GetChild(0).position = transform.position;
             Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
             positionTmp.z = 0;
-            Debug.Log(Vector3Int.RoundToInt(positionTmp)+" " + positionTmp);
             unit.transform.position = Vector3Int.RoundToInt(positionTmp);
             unit.transform.SetParent(null);
             unit = null;
