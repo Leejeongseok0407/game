@@ -11,9 +11,6 @@ public abstract class Monster : MonoBehaviour
     float offset;
 
     bool isAlive;
-
-    Vector3 preCalculatedVectorToNextWayPoint;
-    Vector3 curVectorToNextWayPoint;
     List<GameObject> curStageWayPoint;
     int nextWayPointIndex;
     void Update()
