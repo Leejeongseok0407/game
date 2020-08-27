@@ -34,6 +34,7 @@ public abstract class Monster : MonoBehaviour
             nextWayPointIndex++;
             if(nextWayPointIndex == curStageWayPoint.Count)
             {
+                StageManager.Instance.ReceiveDmgNexus();
                 Death();
             }
         }
