@@ -101,6 +101,7 @@ public class MonsterManager : MonoBehaviour
                 return null;
         }
 
+        newMonster.transform.SetParent(this.transform);
         newMonster.gameObject.SetActive(false);
         newMonster.transform.position = enqueuedMonsterPos;
         return newMonster;
