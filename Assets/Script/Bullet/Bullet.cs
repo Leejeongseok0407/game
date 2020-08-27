@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] GameObject target = null;
+    [SerializeField] protected GameObject target = null;
     [SerializeField] float bullitSpeed = 1f;
-    [SerializeField] int bullitDmg = 0;
+    [SerializeField] protected int bullitDmg = 1;
     protected int bulletType;
     protected float hitRange = 0.5f;
     protected float distance;
@@ -14,7 +14,10 @@ public class Bullet : MonoBehaviour
 
     //총알 움직이는 함수
     protected void MoveBullet() {
-        transform.Translate(Vector3.right * Time.deltaTime * bullitSpeed);
+        if (target.activeSelf == true)
+            transform.Translate(Vector3.right * Time.deltaTime * bullitSpeed);
+        else
+            ReturnBullet();
     }
 
     protected void LookAtBullet()
@@ -42,8 +45,8 @@ public class Bullet : MonoBehaviour
     {
         bullitDmg = dmg;
     }
-    public int GetBulletDmg() {
-        return bullitDmg;
+    protected void HitMonster()
+    {
+        target.GetComponent<Monster>().ReceiveDmg(bullitDmg);
     }
-
 }
