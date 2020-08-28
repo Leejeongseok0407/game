@@ -59,11 +59,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-     public bool IsEmpty(Transform pos)  //위치 을 넣으면 타일의 상태를 검사해 유닛을 놓을수있으면 놓을수 없는 상태로 변경한 후 true 반환 
+     public bool IsEmpty(Vector3 pos)  //위치 을 넣으면 타일의 상태를 검사해 유닛을 놓을수있으면 놓을수 없는 상태로 변경한 후 true 반환 
     {  
-        if(mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y), Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor)] == 1)
+        if(mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.y), Mathf.RoundToInt(pos.x -curStageMap.transform.position.x - xCorrect - xAnchor)] == 1)
         {
-            mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y), Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor)]++;
+            mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.y), Mathf.RoundToInt(pos.x -curStageMap.transform.position.x - xCorrect - xAnchor)]++;
             return true;
         }
         else
