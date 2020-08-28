@@ -64,4 +64,27 @@ public class UnitContainerManager : MonoBehaviour
         else
             Debug.Log("에러");
     }
+
+    public void ResetUnnit()
+    {
+        
+        for (int i = 0; i < unitMap.transform.childCount; i++)
+        {
+            var setUnitMap = unitMap.transform.GetChild(i).GetComponent<Unit>();
+            setUnitMap.transform.SetParent(unitInventory.transform);
+        }
+
+        unitInventoryArry = new List<Unit>();
+        unitMapArry = new List<Unit>();
+        for (int i = 0; i < unitInventory.transform.childCount; i++)
+        {
+            var setUnitInventory = unitInventory.transform.GetChild(i).GetComponent<Unit>();
+            unitInventoryArry.Add(setUnitInventory);
+        }
+        for (int i = 0; i < unitMap.transform.childCount; i++)
+        {
+            var setUnitMap = unitMap.transform.GetChild(i).GetComponent<Unit>();
+            unitMapArry.Add(setUnitMap);
+        }
+    }
 }

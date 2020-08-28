@@ -36,4 +36,9 @@ public class SlotInventory : MonoBehaviour
             slotRoot.GetChild(i).GetComponent<Slot>().UpdateSlot();
         }
     }
+
+    public void InventoryReset() {
+        UnitContainer.ResetUnnit();
+        SetSlotInventory();
+    }
 }
