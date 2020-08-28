@@ -9,7 +9,8 @@ public enum GBTNType
     Quit,
     Resume,
     Skip,
-    NextLevel
+    NextLevel,
+    Defeat
 }
 public class GUI : MonoBehaviour
 {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class StageManager : MonoBehaviour
     
     int curStage;
     int nexusHp;
+
+    [SerializeField]
+    GameObject nextStageBtn = null;
+    [SerializeField]
+    GameObject defeatBtn = null;
     void Awake()
     {
         Instance = this;
@@ -33,7 +39,7 @@ public class StageManager : MonoBehaviour
     public void EndStage()
     {
         MapManager.Instance.DestroyWayPoint();
-        //버튼.setActive(true); 
+        nextStageBtn.SetActive(true); 
 
         //SlotInventory.Instance.InventoryReset();
         
@@ -41,19 +47,14 @@ public class StageManager : MonoBehaviour
 
     public void GoToNextStage()
     {
+        nextStageBtn.SetActive(false);
         curStage++;
         StartStage();
     }
-
-
-    public void GoToStartScreen()
-    {
-        Debug.Log("Defeat");
-    }
-
     public void Defeat()
     {
-        GoToStartScreen();
+        SceneManager.LoadScene(0);
+        Debug.Log("Defeat");
         curStage = 0;
     }
 
@@ -62,7 +63,7 @@ public class StageManager : MonoBehaviour
         nexusHp--;
         if(nexusHp == 0)
         {
-            Defeat();
+            defeatBtn.SetActive(true);
         }
     }
 }

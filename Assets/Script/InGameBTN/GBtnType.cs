@@ -54,6 +54,9 @@ public class GBtnType : MonoBehaviour
             case "NextLevel":
                 StageManager.Instance.GoToNextStage();
                 break;
+            case "Defeat":
+                StageManager.Instance.Defeat();
+                break;
         }
     }
 
