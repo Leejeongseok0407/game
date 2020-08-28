@@ -25,18 +25,26 @@ public class StageManager : MonoBehaviour
     void SetStageInfo()
     {
         nexusHp = 5;
-        CameraManager.Instance.MoveCameraToStage(curStage);
-        MapManager.Instance.SetStageMap(curStage);
-        MonsterManager.Instance.SetStageWaveInfo(curStage);
+        CameraManager.Instance.MoveCameraToStage(curStage); //카메라이동
+        MapManager.Instance.SetStageMap(curStage);  //맵 설정, 웨이포인트 생성 
+        MonsterManager.Instance.SetStageWaveInfo(curStage); // 웨이브, 몹 정보
     }
 
     public void EndStage()
     {
         MapManager.Instance.DestroyWayPoint();
+        //버튼.setActive(true); 
+
         //SlotInventory.Instance.InventoryReset();
+        
+    }
+
+    public void GoToNextStage()
+    {
         curStage++;
         StartStage();
     }
+
 
     public void GoToStartScreen()
     {
