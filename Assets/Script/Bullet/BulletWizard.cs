@@ -7,23 +7,32 @@ public class BulletWizard : Bullet
 {
     [SerializeField] float ExplosionRange = 5.0f;
     [SerializeField] int ExplosionDmg;
-    [SerializeField] GameObject ExplosionParticle = null;
+    [SerializeField] GameObject ExplosionImg;
+    [SerializeField] GameObject defaultImg;
     [SerializeField] Vector3 ExplosionPosition;
     private void Awake()
     {
+        ExplosionImg.SetActive(false);
         bulletType = 1;
+        defaultImg.SetActive(true);
     }
     private void Update()
     {
         MoveBullet();
         LookAtBullet();
         CalculateDistance();
+        if (distance < hitRange  + 0.2f)
+        {
+            ExplosionImg.SetActive(true);
+            defaultImg.SetActive(false);
+        }
         if (distance < hitRange)
         {
             ExplosionDmg = bullitDmg / 2;
             Explosion();
             ReturnBullet();
             HitMonster();
+            ExplosionImg.SetActive(false);
         }
     }
 
@@ -37,6 +46,7 @@ public class BulletWizard : Bullet
             if (hitsCol[i].gameObject.tag == "Monster")
                 Debug.Log(hitsCol[i].name + "--");
 
+        
         ExplosionPosition = transform.position;
 
        // StartCoroutine(ExplosionIEnum());
@@ -62,7 +72,7 @@ public class BulletWizard : Bullet
     {
         Debug.Log("++");
 
-        var Explosion = Instantiate(ExplosionParticle, this.transform.localPosition, Quaternion.identity);
+        var Explosion = Instantiate(ExplosionImg, this.transform.localPosition, Quaternion.identity);
 
         yield return new WaitForSeconds(0.5f);
 
