@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GBtnType : MonoBehaviour
 {
-
+    public static GBtnType Instance;
     public CanvasGroup GmainGroup;
     public CanvasGroup GoptionGroup;
     bool isSound;
@@ -51,10 +51,16 @@ public class GBtnType : MonoBehaviour
                 SceneManager.LoadScene(2);
 
                 break;
-
+            case "NextLevel":
+                StageManager.Instance.GoToNextStage();
+                break;
         }
     }
 
+    void Start()
+    {
+        Instance = this;
+    }
     public void CanvasGroupOn(CanvasGroup cg)
     {
         cg.alpha = 1;
