@@ -27,6 +27,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
         }
         else
         {
+            image.transform.localScale = Vector3.one;
             unit = inputUnit;
             image.sprite = inputUnit.GetComponentInChildren<SpriteRenderer>().sprite;
             gameObject.name = inputUnit.name;

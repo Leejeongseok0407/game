@@ -8,9 +8,10 @@ public class SlotInventory : MonoBehaviour
     [SerializeField] Transform slotRoot;
     [SerializeField] List<Slot> slots;
 
-
+    public static SlotInventory Instance;
     private void Start()
     {
+        Instance = this;
         SetSlotInventory();
     }
 
