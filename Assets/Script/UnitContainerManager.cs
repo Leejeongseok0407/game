@@ -67,7 +67,6 @@ public class UnitContainerManager : MonoBehaviour
 
     public void ResetUnnit()
     {
-        
         for (int i = 0; i < unitMap.transform.childCount; i++)
         {
             var setUnitMap = unitMap.transform.GetChild(i).GetComponent<Unit>();
