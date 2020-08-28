@@ -2710,7 +2710,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: NextLevel
+          m_StringArgument: Defeat
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &345022406
@@ -2979,6 +2979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b207455d2df29b489e4711e259fd387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextStageBtn: {fileID: 1156423464}
+  defeatBtn: {fileID: 345022403}
 --- !u!1 &423665886
 GameObject:
   m_ObjectHideFlags: 0
