@@ -24,7 +24,6 @@ public class SlotInventory : MonoBehaviour
             if (i < UnitContainer.ReadUnitArry().Count)
             {
                 slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
-                slot.GetComponent<Slot>().SetUnitMap(UnitContainer.ReturnUnitMap());
             }
             else
                 slot.SetUnit(null);
