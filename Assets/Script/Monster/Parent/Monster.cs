@@ -65,7 +65,7 @@ public abstract class Monster : MonoBehaviour
         this.isAlive = true;
 
         //this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
-        Debug.Log("Monster Type" + this.type + "Allocated");
+
     }
 
     Vector3 CalculateVectorToNextWayPoint(Vector3 curPosition)

@@ -82,19 +82,16 @@ public class MonsterManager : MonoBehaviour
         {
             case 0:
                 newMonster = Instantiate(lightMonster).GetComponent<Light>();
-                Debug.Log("Light Instantiate");
                 break;
             case 1:
                 newMonster = Instantiate(mediumMonster).GetComponent<Medium>();
-                Debug.Log("Medium Instantiate");
                 break;
             case 2:
                 newMonster = Instantiate(heavyMonster).GetComponent<Heavy>();
-                Debug.Log("Heavy Instantiate");
+
                 break;
             case 3:
                 newMonster = Instantiate(armoredMonster).GetComponent<Armored>();
-                Debug.Log("Armored Instantiate");
                 break;
             default:
                 Debug.Log("not valid type");

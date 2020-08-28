@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletWizard : Bullet
 {
-    [SerializeField] float ExplosionRange = 2.0f;
+    [SerializeField] float ExplosionRange = 5.0f;
+    [SerializeField] float ExplosionDmg;
     [SerializeField] GameObject ExplosionParticle = null;
+    [SerializeField] Vector3 ExplosionPosition;
     private void Awake()
     {
         bulletType = 1;
@@ -17,30 +20,50 @@ public class BulletWizard : Bullet
         CalculateDistance();
         if (distance < hitRange)
         {
+            ExplosionDmg = bullitDmg / 2;
             Explosion();
             ReturnBullet();
             HitMonster();
         }
     }
 
+
     void Explosion()
     {
-        
-            // 폭발 반경에 있는 몹 전부 찾음
-            Collider2D[] hitsCol = Physics2D.OverlapCircleAll(transform.position, ExplosionRange);
-            // 몬스터 전부에게 데미지
-            foreach (Collider2D hit in hitsCol)
-            {
-                if (hit.gameObject.tag == "Enemy")
-                {
-                    //hit.gameObject.GetComponent<Mob1>().damage(1);
-                    //몬스터 데미지 입는거 적용
-                }
-            }
-        //ExplosionParticle생성.
-        if (ExplosionParticle != null)
-            Instantiate(ExplosionParticle, transform.position, Quaternion.identity);
 
-        
+        // 폭발 반경에 있는 몹 전부 찾음
+        Collider2D[] hitsCol = Physics2D.OverlapCircleAll(transform.position, ExplosionRange);
+        for (int i = 0; i < hitsCol.Length; i++)
+            if (hitsCol[i].gameObject.tag == "Monster")
+                Debug.Log(hitsCol[i].name+"--");
+
+        ExplosionPosition = transform.position;
+
+        StartCoroutine("ExplosionIEnum");
+        // 몬스터 전부에게 데미지
+        foreach (Collider2D hit in hitsCol)
+        {
+            if (hit.gameObject.tag == "Monster")
+            {
+                Debug.Log(hit.gameObject.name + "딜함");
+                hit.GetComponent<Monster>().ReceiveDmg(300);
+            }
+        }
+        //ExplosionParticle생성.
+        //차후에 바꾸자
+    }
+
+
+    IEnumerable ExplosionIEnum()
+    {
+        Debug.Log("++");
+
+        var Explosion = Instantiate(ExplosionParticle, this.transform.localPosition, Quaternion.identity);
+
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(Explosion);
+
     }
 }
+

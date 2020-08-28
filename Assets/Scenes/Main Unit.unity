@@ -4415,6 +4415,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1900151930646845570, guid: 8430a4eeadbb18d479e17d05daa12012,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900151930646845580, guid: 8430a4eeadbb18d479e17d05daa12012,
+        type: 3}
+      propertyPath: ExplosionParticle
+      value: 
+      objectReference: {fileID: 255857607358039259, guid: fa71d7c5c49969d4c8463147e3bbfda9,
+        type: 3}
+    - target: {fileID: 1900151930646845580, guid: 8430a4eeadbb18d479e17d05daa12012,
+        type: 3}
+      propertyPath: ExplosionRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1900151930830859182, guid: 8430a4eeadbb18d479e17d05daa12012,
         type: 3}
       propertyPath: m_Name

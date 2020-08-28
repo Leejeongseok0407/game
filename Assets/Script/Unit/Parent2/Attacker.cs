@@ -83,7 +83,7 @@ public class Attacker : Unit
             if (rangeOutEnemy == collision.gameObject)
             {
                 MonsterList.Remove(rangeOutEnemy);
-                Debug.Log("TagetExit");
+
                 break;
             }
         }

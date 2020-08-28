@@ -13,7 +13,7 @@ public class BulletRanger : Bullet
         if (distance < hitRange)
         {
             ReturnBullet();
-            target.GetComponent<Monster>().ReceiveDmg(bullitDmg);
+            HitMonster();
         }
     }
     
