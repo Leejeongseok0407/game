@@ -9,6 +9,8 @@ public class MonsterManager : MonoBehaviour
     int allocatedMonsterNum;
     int monsterNumNeedToCreate;
     int createdMonsterNum;
+
+    float waitTime = 5.0f;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     List<Dictionary<string,object>> mobInfo = null;
     List<Dictionary<string,object>> curStageWaveInfo = null;
@@ -98,6 +100,7 @@ public class MonsterManager : MonoBehaviour
                 return null;
         }
 
+        newMonster.transform.SetParent(this.transform);
         newMonster.gameObject.SetActive(false);
         newMonster.transform.position = enqueuedMonsterPos;
         return newMonster;
@@ -185,20 +188,13 @@ public class MonsterManager : MonoBehaviour
     }
     public void SetStageWaveInfo(int stage)
     {
-        switch(stage)
-        {
-            case 0:
-            curStageWaveInfo = CsvReader.Read ("Stage0WaveCsv");
-            break;
-            default:
-            break;
-        }
+        curStageWaveInfo = CsvReader.Read ("Stage" + stage + "WaveCsv");
     }
-
     public IEnumerator StartMonsterWave(int stage)
     {
         float curTime = 0;
         float nextWaveTime;
+        yield return new WaitForSeconds(waitTime);
         allocatedMonsterNum = 0;
         monsterNumNeedToCreate = 0;
         createdMonsterNum = 0;

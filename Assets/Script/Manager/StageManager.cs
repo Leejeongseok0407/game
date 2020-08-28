@@ -7,6 +7,7 @@ public class StageManager : MonoBehaviour
     public static StageManager Instance;
     
     int curStage;
+    int nexusHp;
     void Awake()
     {
         Instance = this;
@@ -23,6 +24,8 @@ public class StageManager : MonoBehaviour
     }
     void SetStageInfo()
     {
+        nexusHp = 5;
+        CameraManager.Instance.MoveCameraToStage(curStage);
         MapManager.Instance.SetStageMap(curStage);
         MonsterManager.Instance.SetStageWaveInfo(curStage);
     }
@@ -31,5 +34,26 @@ public class StageManager : MonoBehaviour
     {
         MapManager.Instance.DestroyWayPoint();
         curStage++;
+        StartStage();
+    }
+
+    public void GoToStartScreen()
+    {
+        Debug.Log("Defeat");
+    }
+
+    public void Defeat()
+    {
+        GoToStartScreen();
+        curStage = 0;
+    }
+
+    public void ReceiveDmgNexus()
+    {
+        nexusHp--;
+        if(nexusHp == 0)
+        {
+            Defeat();
+        }
     }
 }
