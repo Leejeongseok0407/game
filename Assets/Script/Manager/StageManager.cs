@@ -63,7 +63,8 @@ public class StageManager : MonoBehaviour
         nexusHp--;
         if(nexusHp == 0)
         {
-            defeatBtn.SetActive(true);
+            defeatBtn.SetActive(true); 
+            Time.timeScale = 0;
         }
     }
 }

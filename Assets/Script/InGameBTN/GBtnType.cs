@@ -55,6 +55,7 @@ public class GBtnType : MonoBehaviour
                 StageManager.Instance.GoToNextStage();
                 break;
             case "Defeat":
+                Time.timeScale = 1;
                 StageManager.Instance.Defeat();
                 break;
         }
