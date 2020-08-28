@@ -22,9 +22,13 @@ public class SlotInventory : MonoBehaviour
             var slot = slotRoot.GetChild(i).GetComponent<Slot>();
             slot.SetIndex(i);
             if (i < UnitContainer.ReadUnitArry().Count)
+            {
                 slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
-            else 
+                slot.GetComponent<Slot>().SetUnitMap(UnitContainer.ReturnUnitMap());
+            }
+            else
                 slot.SetUnit(null);
+
             slots.Add(slot);
         }
     }

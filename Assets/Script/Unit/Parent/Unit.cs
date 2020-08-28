@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField] GameObject unitMap;
     [SerializeField] protected float range = 4;
     [SerializeField] protected int[] gene = new int[4];
     [SerializeField] protected int unitType;
