@@ -59,17 +59,17 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public int GetTileRowByPosition(Transform pos)  //위치를 넣으면 타일의 행 반환
-    {
-        return Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y); 
-    }
-    public int GetTileColumnByPosition(Transform pos)   //위치를 넣으면 타일의 열 반환 
-    {
-        return Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor); 
-    }
-     public int GetMapTileStatus(int row, int col)  //행과 열을 넣으면 타일의 상태를 반환
-    {
-        return mapMatrix[row, col];
+     public bool IsEmpty(Transform pos)  //위치 을 넣으면 타일의 상태를 검사해 유닛을 놓을수있으면 놓을수 없는 상태로 변경한 후 true 반환 
+    {  
+        if(mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y), Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor)] == 1)
+        {
+            mapMatrix[Mathf.RoundToInt(curStageMap.transform.position.y + yCorrect + yAnchor - pos.position.y), Mathf.RoundToInt(pos.position.x -curStageMap.transform.position.x - xCorrect - xAnchor)]++;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Vector3 GetTilePositionByIndex(int row, int col) //행과 열을 넣으면 타일의 좌표를 반환
@@ -77,11 +77,6 @@ public class MapManager : MonoBehaviour
         float tilePositionX = curStageMap.transform.position.x + col + xCorrect + xAnchor;
         float tilePositionY = curStageMap.transform.position.y + yCorrect - row + yAnchor;
         return new Vector3(tilePositionX, tilePositionY, 0);
-    }
-
-    public void SetMapMatrixStatusByIndex(int row, int col, int change) //행,열에 해당하는 타일의 상태를 change만큼 변경함(유닛을 놓는다면 1을 더해서 1에서 2로 유닛을 제거했다면 -1을 더해서 2에서 1로)
-    {
-        mapMatrix[row, col] += change;
     }
     
     public void DestroyWayPoint()
