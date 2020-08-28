@@ -21,28 +21,31 @@ public abstract class Monster : MonoBehaviour
 
     void TrackWayPoint()
     {
-        CheckArrive();
-        offset += velocity * Time.deltaTime;
-        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position, offset/length);
-        
+        if(CheckArrive() == false)
+        {
+            offset += velocity * Time.deltaTime;
+            transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position, offset/length);
+        }
     }
 
-    void CheckArrive()
+    bool CheckArrive()
     {
         if(offset >= length)
-        { 
+        {
+            offset = 0;
+            nextWayPointIndex++;
             if(nextWayPointIndex == curStageWayPoint.Count)
             {
                 StageManager.Instance.ReceiveDmgNexus();
                 Death();
+                return true;
             }
             else
             {
                 length = Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position);
             }
-            offset = 0;
-            nextWayPointIndex++;
         }
+        return false;
     }
     public void SetMonster(int type, int hp, int armor, List<GameObject> curStageWayPoint)
     {
@@ -68,6 +71,8 @@ public abstract class Monster : MonoBehaviour
         this.armor = armor;
         this.curStageWayPoint = curStageWayPoint;
         this.nextWayPointIndex = 1;
+        this.offset = 0;
+        this.length = Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position);
         this.isAlive = true;
 
         //this.preCalculatedVectorToNextWayPoint = CalculateVectorToNextWayPoint(curStageWayPoint[0].position);
