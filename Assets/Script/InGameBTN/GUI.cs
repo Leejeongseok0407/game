@@ -7,7 +7,8 @@ public enum GBTNType
     Option,
     Sound,
     Quit,
-    Resume
+    Resume,
+    Skip
 }
 public class GUI : MonoBehaviour
 {

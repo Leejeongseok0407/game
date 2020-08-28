@@ -46,6 +46,12 @@ public class GBtnType : MonoBehaviour
                 Time.timeScale = 1;
 
                 break;
+
+            case "Skip":
+                SceneManager.LoadScene(2);
+
+                break;
+
         }
     }
 
