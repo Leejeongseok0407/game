@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletWizard : Bullet
 {
     [SerializeField] float ExplosionRange = 5.0f;
-    [SerializeField] float ExplosionDmg;
+    [SerializeField] int ExplosionDmg;
     [SerializeField] GameObject ExplosionParticle = null;
     [SerializeField] Vector3 ExplosionPosition;
     private void Awake()
@@ -35,22 +35,26 @@ public class BulletWizard : Bullet
         Collider2D[] hitsCol = Physics2D.OverlapCircleAll(transform.position, ExplosionRange);
         for (int i = 0; i < hitsCol.Length; i++)
             if (hitsCol[i].gameObject.tag == "Monster")
-                Debug.Log(hitsCol[i].name+"--");
+                Debug.Log(hitsCol[i].name + "--");
 
         ExplosionPosition = transform.position;
 
-        StartCoroutine("ExplosionIEnum");
+       // StartCoroutine(ExplosionIEnum());
         // 몬스터 전부에게 데미지
         foreach (Collider2D hit in hitsCol)
         {
             if (hit.gameObject.tag == "Monster")
             {
                 Debug.Log(hit.gameObject.name + "딜함");
-                hit.GetComponent<Monster>().ReceiveDmg(300);
+                hit.GetComponent<Monster>().ReceiveDmg(ExplosionDmg);
             }
         }
         //ExplosionParticle생성.
         //차후에 바꾸자
+    }
+
+    public void ExplosionF() {
+        Debug.Log("++");
     }
 
 

@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
     [SerializeField] Image image;
     [SerializeField] int index;
     [SerializeField] Unit unit;
+    GameObject unitMap;
 
     private void Start()
     {
@@ -22,7 +23,6 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
         {
             image.transform.localScale = Vector3.zero;
             unit = null;
-            image = null;
             gameObject.name = "Null";
         }
         else
@@ -56,7 +56,10 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
     public int ReturnIndex() {
         return index;
     }
-
+    public void SetUnitMap(GameObject Um)
+    {
+        unitMap = Um;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -84,7 +87,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
             Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
             positionTmp.z = 0;
             unit.transform.position = Vector3Int.RoundToInt(positionTmp);
-            unit.transform.SetParent(null);
+            unit.transform.SetParent(unitMap.transform);
             unit = null;
             image.transform.localScale = Vector3.zero;
         }
