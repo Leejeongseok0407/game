@@ -43,9 +43,6 @@ public class MonsterManager : MonoBehaviour
     }
     private void CheckStageEnd()
     {
-        Debug.Log("AllocatedMonsterNum = " + allocatedMonsterNum);
-        Debug.Log("MonsterNumNeedToCreate = " + monsterNumNeedToCreate);
-        Debug.Log("CreatedMonsterNum = " + createdMonsterNum);
         if(allocatedMonsterNum == 0 && (monsterNumNeedToCreate == createdMonsterNum))
         {
             Debug.Log("Stage End");
