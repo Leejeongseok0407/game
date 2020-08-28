@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 {
     private Vector3 originPosition;
     [SerializeField] Image image;
     [SerializeField] int index;
     [SerializeField] Unit unit;
+    [SerializeField] GameObject unitMap;
 
     private void Start()
     {
         originPosition = transform.GetChild(0).position;
     }
 
-    public void SetUnit(Unit inputUnit) {
+    public void SetUnit(Unit inputUnit)
+    {
 
         if (inputUnit == null)
         {
@@ -49,14 +51,19 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
         }
     }
 
-    public void SetIndex(int i) {
+    public void SetIndex(int i)
+    {
         index = i;
     }
 
-    public int ReturnIndex() {
+    public int ReturnIndex()
+    {
         return index;
     }
-
+    public void SetUnitMap(GameObject it)
+    {
+        unitMap = it;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -84,7 +91,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
             Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
             positionTmp.z = 0;
             unit.transform.position = Vector3Int.RoundToInt(positionTmp);
-            //unit.transform.SetParent();
+            unit.transform.SetParent(unitMap.transform);
             unit = null;
             image.transform.localScale = Vector3.zero;
         }
