@@ -12,20 +12,33 @@ public class UnitContainerManager : MonoBehaviour
     [SerializeField] List<Unit> unitMapArry;
     [SerializeField] List<Unit> unitInventoryArry;
 
+    public static UnitContainerManager Instance;
     private void Awake()
     {
+        Instance = this;
         SetArry();
+    }
+
+    public GameObject ReturnUnitMap()
+    {
+        return unitMap;
+    }
+    public GameObject ReturnunitInventory()
+    {
+        return unitInventory;
     }
 
     public void SetArry() {
         for (int i = 0; i < unitInventory.transform.childCount; i++)
         {
             var setUnitInventory = unitInventory.transform.GetChild(i).GetComponent<Unit>();
+
             unitInventoryArry.Add(setUnitInventory);
         }
         for (int i = 0; i < unitMap.transform.childCount; i++)
         {
             var setUnitMap = unitMap.transform.GetChild(i).GetComponent<Unit>();
+
             unitMapArry.Add(setUnitMap);
         }
     }
@@ -42,7 +55,12 @@ public class UnitContainerManager : MonoBehaviour
     {
         return unitInventoryArry;
     }
-    
+
+    public GameObject ReturnunitMap() {
+        return unitMap;
+    }
+
+
     public void ReturnUnit(Unit obj)
     {
         Debug.Log("Retunr");
@@ -67,9 +85,9 @@ public class UnitContainerManager : MonoBehaviour
 
     public void ResetUnnit()
     {
-        for (int i = 0; i < unitMap.transform.childCount; i++)
+        while (unitMap.transform.childCount != 0)
         {
-            var setUnitMap = unitMap.transform.GetChild(i).GetComponent<Unit>();
+            var setUnitMap = unitMap.transform.GetChild(0).GetComponent<Unit>();
             setUnitMap.transform.SetParent(unitInventory.transform);
         }
 
