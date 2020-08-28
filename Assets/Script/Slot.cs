@@ -13,7 +13,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     private void Start()
     {
-        originPosition = transform.GetChild(0).position;
+        originPosition = this.transform.position;
     }
 
     public void SetUnit(Unit inputUnit)
@@ -84,16 +84,20 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         {
             transform.GetChild(0).position = transform.position;
             Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
+
             if (MapManager.Instance.IsEmpty(positionTmp))
             {
                 positionTmp.z = 0;
-                unit.transform.position = Vector3Int.RoundToInt(positionTmp);
+                positionTmp = Vector3Int.RoundToInt(positionTmp);
+                positionTmp += new Vector3(0.5f, 0.5f, 0);
+                unit.transform.position = positionTmp;
                 unit.transform.SetParent(UnitContainerManager.Instance.ReturnUnitMap().transform);
                 unit = null;
                 image.transform.localScale = Vector3.zero;
             }
-            else {
-                transform.position = originPosition;
+            else
+            {
+                transform.GetChild(0).position = transform.position;
             }
 
         }
