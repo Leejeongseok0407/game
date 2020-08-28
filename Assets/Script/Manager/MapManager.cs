@@ -54,9 +54,6 @@ public class MapManager : MonoBehaviour
         {
             Vector3 tempPointPosition = GetTilePositionByIndex((int)curStageWayPoint[i]["Row"], (int)curStageWayPoint[i]["Column"]);
             tempPointPosition.y -= 0.5f;
-            Debug.Log(curStageMap.transform.position);
-            Debug.Log(tempPointPosition);
-            Debug.Log("WayPoint " + i + "Created");
             GameObject tempPoint = Instantiate(point, tempPointPosition, Quaternion.identity);
             wayPointArr.Add(tempPoint);
         }
@@ -92,7 +89,6 @@ public class MapManager : MonoBehaviour
         for(int i = 0; i < wayPointArr.Count; i++)
         {
             Destroy(wayPointArr[i]);
-            Debug.Log("Waypoint" + i + "Destroy");
         }
         wayPointArr.Clear();
     }

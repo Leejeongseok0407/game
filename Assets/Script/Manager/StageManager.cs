@@ -33,7 +33,7 @@ public class StageManager : MonoBehaviour
     public void EndStage()
     {
         MapManager.Instance.DestroyWayPoint();
-        SlotInventory.Instance.InventoryReset();
+        //SlotInventory.Instance.InventoryReset();
         curStage++;
         StartStage();
     }

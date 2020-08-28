@@ -84,7 +84,7 @@ public class Slot : MonoBehaviour , IBeginDragHandler, IDragHandler, IDropHandle
             Vector3 positionTmp = Camera.main.ScreenToWorldPoint(eventData.position);
             positionTmp.z = 0;
             unit.transform.position = Vector3Int.RoundToInt(positionTmp);
-            unit.transform.SetParent(null);
+            //unit.transform.SetParent();
             unit = null;
             image.transform.localScale = Vector3.zero;
         }

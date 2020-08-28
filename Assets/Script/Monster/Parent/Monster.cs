@@ -10,6 +10,7 @@ public abstract class Monster : MonoBehaviour
     float velocity;
     float offset;
 
+    float length;
     bool isAlive;
     List<GameObject> curStageWayPoint;
     int nextWayPointIndex;
@@ -20,24 +21,27 @@ public abstract class Monster : MonoBehaviour
 
     void TrackWayPoint()
     {
-        
-        offset += velocity * Time.deltaTime;
-        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position, offset/Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position));
         CheckArrive();
+        offset += velocity * Time.deltaTime;
+        transform.position = Vector3.Lerp(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position, offset/length);
+        
     }
 
     void CheckArrive()
     {
-        if(Vector3.Distance(transform.position, curStageWayPoint[nextWayPointIndex].transform.position) == 0)
-        {
-            offset = 0;
-            nextWayPointIndex++;
-            Debug.Log("Reach");
+        if(offset >= length)
+        { 
             if(nextWayPointIndex == curStageWayPoint.Count)
             {
                 StageManager.Instance.ReceiveDmgNexus();
                 Death();
             }
+            else
+            {
+                length = Vector3.Distance(curStageWayPoint[nextWayPointIndex-1].transform.position, curStageWayPoint[nextWayPointIndex].transform.position);
+            }
+            offset = 0;
+            nextWayPointIndex++;
         }
     }
     public void SetMonster(int type, int hp, int armor, List<GameObject> curStageWayPoint)
