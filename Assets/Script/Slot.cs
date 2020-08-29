@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
+public class Slot : MonoBehaviour,  IDragHandler, IDropHandler
 {
     private Vector3 originPosition;
     [SerializeField] Image image;
-    [SerializeField] int index;
     [SerializeField] Unit unit;
 
     private void Start()
@@ -50,20 +49,9 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         }
     }
 
-    public void SetIndex(int i)
-    {
-        index = i;
-    }
+    
+    
 
-    public int ReturnIndex()
-    {
-        return index;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -88,7 +76,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
             if (MapManager.Instance.IsEmpty(positionTmp))
             {
                 positionTmp.z = 0;
-                positionTmp = Vector3Int.RoundToInt(positionTmp);
+                positionTmp = Vector3Int.FloorToInt(positionTmp);
                 positionTmp += new Vector3(0.5f, 0.5f, 0);
                 unit.transform.position = positionTmp;
                 unit.transform.SetParent(UnitContainerManager.Instance.ReturnUnitMap().transform);

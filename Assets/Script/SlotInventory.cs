@@ -20,7 +20,6 @@ public class SlotInventory : MonoBehaviour
         for (int i = 0; i < slotRoot.childCount; i++)
         {
             var slot = slotRoot.GetChild(i).GetComponent<Slot>();
-            slot.SetIndex(i);
             if (i < UnitContainer.ReadUnitArry().Count)
             {
                 slot.SetUnit(UnitContainer.ReadUnitArry()[i]);
