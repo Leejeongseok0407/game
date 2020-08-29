@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 229757353}
   - component: {fileID: 229757352}
   - component: {fileID: 229757351}
+  - component: {fileID: 229757354}
   m_Layer: 5
   m_Name: Credit
   m_TagString: Untagged
@@ -393,6 +394,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229757349}
   m_CullTransparentMesh: 0
+--- !u!114 &229757354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229757349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86019d8cb718ea4fa87e398b18c8e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainGroup: {fileID: 529348776}
+  creditGroup: {fileID: 229757352}
 --- !u!1 &303539829
 GameObject:
   m_ObjectHideFlags: 0
