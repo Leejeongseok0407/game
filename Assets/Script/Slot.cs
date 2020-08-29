@@ -20,7 +20,8 @@ public class Slot : MonoBehaviour,  IDragHandler, IDropHandler
 
         if (inputUnit == null)
         {
-            image.transform.localScale = Vector3.zero;
+            if (image != null)
+                image.transform.localScale = Vector3.zero;
             unit = null;
             image = null;
             gameObject.name = "Null";
