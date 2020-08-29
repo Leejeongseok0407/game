@@ -10,7 +10,7 @@ public class MonsterManager : MonoBehaviour
     int monsterNumNeedToCreate;
     int createdMonsterNum;
 
-    float waitTime = 5.0f;
+    float waitTime = 3.0f;
     Vector3 enqueuedMonsterPos = new Vector3(100, 100, 100);
     List<Dictionary<string,object>> mobInfo = null;
     List<Dictionary<string,object>> curStageWaveInfo = null;
@@ -158,7 +158,7 @@ public class MonsterManager : MonoBehaviour
             break;
         }
         allocatedMonsterNum--;
-
+        Debug.Log("allocatedMonster = " + allocatedMonsterNum);
         CheckStageEnd();
     }
 
