@@ -41,7 +41,7 @@ public class StageManager : MonoBehaviour
         MapManager.Instance.DestroyWayPoint();
         nextStageBtn.SetActive(true); 
 
-        //SlotInventory.Instance.InventoryReset();
+        SlotInventory.Instance.InventoryReset();
         
     }
 

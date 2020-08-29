@@ -40,7 +40,6 @@ public class MapManager : MonoBehaviour
     // Update is called once per frame
     public void SetStageMap(int stage)
     {
-        Debug.Log("Current Stage = " + stage);
         curStageMap = stageMapList[stage];
         curStageMapStatus = CsvReader.Read ("Stage" + stage + "MapStatusCsv");
         curStageWayPoint = CsvReader.Read("Stage" + stage + "WayPointIndexCsv");
@@ -79,6 +78,13 @@ public class MapManager : MonoBehaviour
         return new Vector3(tilePositionX, tilePositionY, 0);
     }
     
+    public Vector3 GetTilePositionByPosition(Vector3 Pos) //행과 열을 넣으면 타일의 좌표를 반환
+    {
+        float tilePositionX = curStageMap.transform.position.x + (int)(Pos.x - curStageMap.transform.position.x)  + xCorrect + xAnchor;
+        float tilePositionY = curStageMap.transform.position.x + (int)(Pos.y - curStageMap.transform.position.y) + yCorrect + yAnchor;
+        return new Vector3(tilePositionX, tilePositionY, Pos.z);
+    }
+
     public void DestroyWayPoint()
     {
         for(int i = 0; i < wayPointArr.Count; i++)
