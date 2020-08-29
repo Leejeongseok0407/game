@@ -46,7 +46,10 @@ public class Bullet : MonoBehaviour
         bullitDmg = dmg;
     }
     protected void HitMonster()
-    {
-        target.GetComponent<Monster>().ReceiveDmg(bullitDmg);
+    {   
+        if(target.activeSelf == true)
+        {
+            target.GetComponent<Monster>().ReceiveDmg(bullitDmg);
+        }
     }
 }
