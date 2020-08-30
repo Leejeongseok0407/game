@@ -58,6 +58,9 @@ public class GBtnType : MonoBehaviour
                 Time.timeScale = 1;
                 StageManager.Instance.Defeat();
                 break;
+            case "EndDemo":
+                SceneManager.LoadScene(0);
+                break;
         }
     }
 

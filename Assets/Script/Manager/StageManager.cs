@@ -8,10 +8,15 @@ public class StageManager : MonoBehaviour
     public static StageManager Instance;
     
     int curStage;
+
+    int maxStage = 2;
     int nexusHp;
 
     [SerializeField]
     GameObject nextStageBtn = null;
+
+    [SerializeField]
+    GameObject endDemoBtn = null;
     [SerializeField]
     GameObject defeatBtn = null;
     void Awake()
@@ -39,15 +44,23 @@ public class StageManager : MonoBehaviour
     public void EndStage()
     {
         MapManager.Instance.DestroyWayPoint();
-        nextStageBtn.SetActive(true);
-        SlotInventory.Instance.InventoryReset();
+        if(curStage == maxStage)
+        {
+            endDemoBtn.SetActive(true);
+        }
+        else
+        {
+            nextStageBtn.SetActive(true);
+            SlotInventory.Instance.InventoryReset();
+        }
     }
 
     public void GoToNextStage()
     {
-        nextStageBtn.SetActive(false);
-        curStage++;
-        StartStage();
+        
+            nextStageBtn.SetActive(false);
+            curStage++;
+            StartStage();
     }
     public void Defeat()
     {
