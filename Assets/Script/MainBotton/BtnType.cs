@@ -58,7 +58,6 @@ public class BtnType : MonoBehaviour
             case "Quitcredit":
                 CanvasGroupOn(mainGroup);
                 CanvasGroupOff(creditGroup);
-                Application.Quit();
                 UnityEngine.Debug.Log("시작화면");
                 break;
 
